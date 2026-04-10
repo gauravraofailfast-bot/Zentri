@@ -1,0 +1,16 @@
+node_modules/
+.env
+.env.local
+*.local
+.DS_Store
+firebase-debug.log
+firebase-debug.*.log
+firestore-debug.log
+ui-debug.log
+
+# Next.js
+frontend/.next/
+frontend/out/
+
+# Functions
+functions/lib/

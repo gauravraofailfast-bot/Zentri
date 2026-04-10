@@ -1,0 +1,15 @@
+{
+  "name": "zentri",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Game-based learning agent — converts academic concepts into engaging interactive games",
+  "scripts": {
+    "dev": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "test:functions": "cd functions && npm test",
+    "test:frontend": "cd frontend && npm test",
+    "verify": "npm run test:functions && npm run test:frontend",
+    "install:all": "npm install && cd frontend && npm install && cd ../functions && npm install",
+    "emulators": "firebase emulators:start"
+  }
+}
