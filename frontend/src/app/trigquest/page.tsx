@@ -6,6 +6,7 @@ import Link from "next/link";
 import { worlds, allLevels } from "@/lib/gameData";
 import { loadGameState, isLevelUnlocked } from "@/lib/gameState";
 import type { GameState } from "@/lib/gameState";
+import { LevelIcon } from "@/components/game/LevelIcon";
 
 export default function TrigQuestHub() {
   const [gameState, setGameState] = useState<GameState | null>(null);
@@ -14,7 +15,6 @@ export default function TrigQuestHub() {
     setGameState(loadGameState());
   }, []);
 
-  const allLevelIds = allLevels.map((l) => l.id);
   const completedLevels = gameState?.completedLevels ?? [];
 
   return (
@@ -109,7 +109,7 @@ export default function TrigQuestHub() {
                     const unlocked = isLevelUnlocked(
                       level.id,
                       completedLevels,
-                      allLevelIds,
+                      allLevels,
                     );
                     const isPlayable = level.implemented && unlocked;
                     const isLocked = !unlocked;
@@ -146,10 +146,11 @@ export default function TrigQuestHub() {
                               {level.number}
                             </span>
                             <div className="flex-1">
-                              <span className="text-sm text-white/70 group-hover:text-foreground transition-colors">
+                              <span className="flex items-center gap-2 text-sm text-white/70 group-hover:text-foreground transition-colors">
+                                <LevelIcon levelId={level.id} className="w-3.5 h-3.5 opacity-50 group-hover:opacity-80 transition-opacity" />
                                 {level.title}
                               </span>
-                              <span className="block text-[11px] text-white/25">
+                              <span className="block text-[11px] text-white/25 ml-[22px]">
                                 {level.subtitle}
                               </span>
                             </div>
@@ -170,10 +171,11 @@ export default function TrigQuestHub() {
                               {level.number}
                             </span>
                             <div className="flex-1">
-                              <span className="text-sm text-white/40">
+                              <span className="flex items-center gap-2 text-sm text-white/40">
+                                <LevelIcon levelId={level.id} className="w-3.5 h-3.5 opacity-30" />
                                 {level.title}
                               </span>
-                              <span className="block text-[11px] text-white/15">
+                              <span className="block text-[11px] text-white/15 ml-[22px]">
                                 {level.subtitle}
                               </span>
                             </div>

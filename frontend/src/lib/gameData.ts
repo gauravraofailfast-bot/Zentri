@@ -239,6 +239,10 @@ export function getWorldForLevel(levelId: string): World | undefined {
 
 export function getNextLevel(currentId: string): Level | undefined {
   const idx = allLevels.findIndex((l) => l.id === currentId);
-  if (idx === -1 || idx >= allLevels.length - 1) return undefined;
-  return allLevels[idx + 1];
+  if (idx === -1) return undefined;
+  // Find the next IMPLEMENTED level
+  for (let i = idx + 1; i < allLevels.length; i++) {
+    if (allLevels[i].implemented) return allLevels[i];
+  }
+  return undefined;
 }

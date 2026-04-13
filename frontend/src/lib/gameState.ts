@@ -59,10 +59,19 @@ export function completeLevel(levelId: string, xpEarned: number): GameState {
 export function isLevelUnlocked(
   levelId: string,
   completedLevels: string[],
-  allLevelIds: string[],
+  allLevels: { id: string; implemented: boolean }[],
 ): boolean {
-  const idx = allLevelIds.indexOf(levelId);
+  const idx = allLevels.findIndex((l) => l.id === levelId);
   if (idx === 0) return true;
-  // A level is unlocked if the previous level is completed
-  return completedLevels.includes(allLevelIds[idx - 1]);
+
+  // Find the nearest PREVIOUS implemented level
+  // Skip over unimplemented levels so players aren't blocked
+  for (let i = idx - 1; i >= 0; i--) {
+    if (allLevels[i].implemented) {
+      return completedLevels.includes(allLevels[i].id);
+    }
+  }
+
+  // No implemented level before this one — it's unlocked
+  return true;
 }
