@@ -36,12 +36,12 @@ export default function GameShell({ levelId, xp, children }: GameShellProps) {
           <p className="text-sm font-medium">{level?.title}</p>
         </div>
 
-        <div className="flex items-center gap-1.5">
-          <span className="text-xs text-white/40">XP</span>
+        <div className="flex items-center gap-1.5 bg-accent/10 border border-accent/20 rounded-full px-3 py-1">
+          <span className="text-xs text-accent-light/70 font-medium">XP</span>
           <motion.span
             key={xp}
-            initial={{ scale: 1.3, color: "#a29bfe" }}
-            animate={{ scale: 1, color: "#f5f5f7" }}
+            initial={{ scale: 1.3, color: "#d4c5ff" }}
+            animate={{ scale: 1, color: "#a29bfe" }}
             className="text-sm font-bold"
           >
             {xp}

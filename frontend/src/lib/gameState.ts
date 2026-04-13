@@ -3,6 +3,7 @@ const STORAGE_KEY = "zentri_game_state";
 export interface GameState {
   xp: number;
   completedLevels: string[];
+  levelXpEarned: Record<string, number>; // maps levelId -> total XP earned so far
   currentStreak: number;
   lastPlayedDate: string | null;
 }
@@ -10,6 +11,7 @@ export interface GameState {
 const defaultState: GameState = {
   xp: 0,
   completedLevels: [],
+  levelXpEarned: {},
   currentStreak: 0,
   lastPlayedDate: null,
 };
@@ -30,14 +32,24 @@ export function saveGameState(state: GameState): void {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
 
-export function completeLevel(levelId: string, xpEarned: number): GameState {
+export function completeLevel(
+  levelId: string,
+  xpEarned: number,
+  maxXp: number,
+): GameState {
   const state = loadGameState();
 
-  if (!state.completedLevels.includes(levelId)) {
+  const isFirstCompletion = !state.completedLevels.includes(levelId);
+
+  if (isFirstCompletion) {
     state.completedLevels.push(levelId);
   }
 
-  state.xp += xpEarned;
+  // Calculate XP award capped by the level's max XP
+  const alreadyEarned = state.levelXpEarned[levelId] || 0;
+  const actualXp = Math.max(0, Math.min(xpEarned, maxXp - alreadyEarned));
+  state.levelXpEarned[levelId] = alreadyEarned + actualXp;
+  state.xp += actualXp;
 
   const today = new Date().toISOString().split("T")[0];
   if (state.lastPlayedDate !== today) {
@@ -56,22 +68,31 @@ export function completeLevel(levelId: string, xpEarned: number): GameState {
   return state;
 }
 
+/**
+ * Determines if a level is unlocked.
+ *
+ * Uses a GLOBAL linear chain across all worlds:
+ *   Level 1 → Level 2 → (skip 3-7) → Speed Recall → (skip 9-12) → Tower Rescue
+ *
+ * An implemented level is unlocked when the previous implemented level
+ * (anywhere in the global list) has been completed.
+ * The very first implemented level is always unlocked.
+ */
 export function isLevelUnlocked(
   levelId: string,
   completedLevels: string[],
   allLevels: { id: string; implemented: boolean }[],
 ): boolean {
-  const idx = allLevels.findIndex((l) => l.id === levelId);
-  if (idx === 0) return true;
+  // Only implemented levels form the unlock chain
+  const implementedLevels = allLevels.filter((l) => l.implemented);
+  const chainIdx = implementedLevels.findIndex((l) => l.id === levelId);
 
-  // Find the nearest PREVIOUS implemented level
-  // Skip over unimplemented levels so players aren't blocked
-  for (let i = idx - 1; i >= 0; i--) {
-    if (allLevels[i].implemented) {
-      return completedLevels.includes(allLevels[i].id);
-    }
-  }
+  // Not an implemented level — always locked
+  if (chainIdx === -1) return false;
 
-  // No implemented level before this one — it's unlocked
-  return true;
+  // First implemented level is always unlocked
+  if (chainIdx === 0) return true;
+
+  // Unlocked if the previous implemented level is completed
+  return completedLevels.includes(implementedLevels[chainIdx - 1].id);
 }

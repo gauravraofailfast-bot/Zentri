@@ -3,11 +3,14 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { getNextLevel, getLevelById } from "@/lib/gameData";
+import { loadGameState } from "@/lib/gameState";
 
 interface LevelCompleteProps {
   levelId: string;
   xpEarned: number;
   totalXp: number;
+  maxXp: number;
+  isRetry?: boolean;
   bonusMessage?: string;
 }
 
@@ -15,10 +18,17 @@ export default function LevelComplete({
   levelId,
   xpEarned,
   totalXp,
+  maxXp,
+  isRetry,
   bonusMessage,
 }: LevelCompleteProps) {
   const nextLevel = getNextLevel(levelId);
   const currentLevel = getLevelById(levelId);
+
+  // Calculate leftover XP available on retry
+  const state = loadGameState();
+  const cumulativeEarned = state.levelXpEarned?.[levelId] || 0;
+  const leftoverXp = Math.max(0, maxXp - cumulativeEarned);
 
   return (
     <motion.div
@@ -80,6 +90,17 @@ export default function LevelComplete({
         </div>
       </motion.div>
 
+      {isRetry && xpEarned === 0 && (
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.55 }}
+          className="text-xs text-white/40 mb-8"
+        >
+          You&apos;ve already earned all XP for this level!
+        </motion.p>
+      )}
+
       {bonusMessage && (
         <motion.p
           initial={{ opacity: 0 }}
@@ -104,6 +125,14 @@ export default function LevelComplete({
             className="px-6 py-3 text-sm uppercase tracking-[0.1em] font-medium text-accent-light border border-accent/30 rounded-full hover:border-accent/60 hover:shadow-[0_0_30px_rgba(108,92,231,0.15)] transition-all duration-500 text-center"
           >
             Next Level &rarr;
+          </Link>
+        )}
+        {leftoverXp > 0 && (
+          <Link
+            href={`/trigquest/play/${levelId}?retry=true`}
+            className="px-6 py-3 text-sm text-white/30 border border-white/10 rounded-full hover:text-white/50 hover:border-white/20 transition-all duration-300 text-center"
+          >
+            Retry for up to {leftoverXp} more XP
           </Link>
         )}
         <Link

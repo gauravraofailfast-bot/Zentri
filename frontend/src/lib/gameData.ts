@@ -238,11 +238,22 @@ export function getWorldForLevel(levelId: string): World | undefined {
 }
 
 export function getNextLevel(currentId: string): Level | undefined {
-  const idx = allLevels.findIndex((l) => l.id === currentId);
-  if (idx === -1) return undefined;
-  // Find the next IMPLEMENTED level
-  for (let i = idx + 1; i < allLevels.length; i++) {
-    if (allLevels[i].implemented) return allLevels[i];
+  // Find the next implemented level within the SAME world first
+  const currentWorld = getWorldForLevel(currentId);
+  if (!currentWorld) return undefined;
+
+  const idxInWorld = currentWorld.levels.findIndex((l) => l.id === currentId);
+  for (let i = idxInWorld + 1; i < currentWorld.levels.length; i++) {
+    if (currentWorld.levels[i].implemented) return currentWorld.levels[i];
   }
+
+  // No more implemented levels in this world — find the first implemented
+  // level in the next world
+  const worldIdx = worlds.findIndex((w) => w.id === currentWorld.id);
+  for (let wi = worldIdx + 1; wi < worlds.length; wi++) {
+    const firstImpl = worlds[wi].levels.find((l) => l.implemented);
+    if (firstImpl) return firstImpl;
+  }
+
   return undefined;
 }

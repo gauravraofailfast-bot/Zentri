@@ -7,6 +7,7 @@ import { worlds, allLevels } from "@/lib/gameData";
 import { loadGameState, isLevelUnlocked } from "@/lib/gameState";
 import type { GameState } from "@/lib/gameState";
 import { LevelIcon } from "@/components/game/LevelIcon";
+import WorldIcon from "@/components/game/WorldIcon";
 
 export default function TrigQuestHub() {
   const [gameState, setGameState] = useState<GameState | null>(null);
@@ -38,9 +39,9 @@ export default function TrigQuestHub() {
               {gameState.currentStreak} day streak
             </span>
           )}
-          <div className="flex items-center gap-1.5">
-            <span className="text-xs text-white/40">XP</span>
-            <span className="text-sm font-bold">{gameState?.xp ?? 0}</span>
+          <div className="flex items-center gap-1.5 bg-accent/10 border border-accent/20 rounded-full px-3 py-1">
+            <span className="text-xs text-accent-light/70 font-medium">XP</span>
+            <span className="text-sm font-bold text-accent-light">{gameState?.xp ?? 0}</span>
           </div>
         </div>
       </motion.div>
@@ -81,13 +82,13 @@ export default function TrigQuestHub() {
                 {/* World header */}
                 <div className="flex items-start gap-4 mb-6">
                   <div
-                    className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold border ${
+                    className={`w-8 h-8 flex items-center justify-center ${
                       worldComplete
-                        ? "border-success/30 text-success bg-success/10"
-                        : "border-white/[0.1] text-white/30 bg-surface"
+                        ? "text-success"
+                        : "text-white/50"
                     }`}
                   >
-                    {worldComplete ? "\u2713" : world.number}
+                    <WorldIcon worldId={world.id} isComplete={worldComplete} />
                   </div>
                   <div className="flex-1">
                     <h2 className="text-lg font-semibold">{world.title}</h2>
@@ -154,7 +155,7 @@ export default function TrigQuestHub() {
                                 {level.subtitle}
                               </span>
                             </div>
-                            <span className="text-xs text-white/15 group-hover:text-white/30 transition-colors">
+                            <span className="text-xs font-semibold text-accent-light/50 group-hover:text-accent-light/80 transition-colors">
                               {level.xpReward} XP
                             </span>
                           </Link>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, use } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import GameShell from "@/components/game/GameShell";
 import LevelComplete from "@/components/game/LevelComplete";
 import Level1NameSides from "@/components/game/levels/Level1NameSides";
@@ -28,27 +28,35 @@ const levelComponents: Record<
 export default function PlayLevel({ params }: PageProps) {
   const { levelId } = use(params);
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [xp, setXp] = useState(0);
   const [completed, setCompleted] = useState(false);
   const [xpEarned, setXpEarned] = useState(0);
   const [totalXp, setTotalXp] = useState(0);
+  const [isRetry, setIsRetry] = useState(false);
 
   const level = getLevelById(levelId);
 
   useEffect(() => {
     const state = loadGameState();
     setXp(state.xp);
-  }, []);
+    // Determine if this is a retry: explicit query param or level already completed
+    const retryParam = searchParams.get("retry") === "true";
+    const alreadyCompleted = state.completedLevels.includes(levelId);
+    setIsRetry(retryParam || alreadyCompleted);
+  }, [searchParams, levelId]);
 
   const handleComplete = useCallback(
     (earned: number) => {
-      const newState = completeLevel(levelId, earned);
-      setXpEarned(earned);
+      const maxXp = level?.xpReward ?? earned;
+      const newState = completeLevel(levelId, earned, maxXp);
+      // Actual XP awarded may be less than `earned` due to the cap
+      setXpEarned(newState.xp - xp);
       setTotalXp(newState.xp);
       setXp(newState.xp);
       setCompleted(true);
     },
-    [levelId],
+    [levelId, level, xp],
   );
 
   if (!level) {
@@ -95,6 +103,8 @@ export default function PlayLevel({ params }: PageProps) {
           levelId={levelId}
           xpEarned={xpEarned}
           totalXp={totalXp}
+          maxXp={level?.xpReward ?? 0}
+          isRetry={isRetry}
         />
       ) : (
         <LevelComponent onComplete={handleComplete} />
