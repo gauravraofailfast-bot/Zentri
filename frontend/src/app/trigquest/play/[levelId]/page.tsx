@@ -62,6 +62,7 @@ export default function PlayLevel({ params }: PageProps) {
   const [xpEarned, setXpEarned] = useState(0);
   const [totalXp, setTotalXp] = useState(0);
   const [isRetry, setIsRetry] = useState(false);
+  const [playKey, setPlayKey] = useState(0); // increment to force remount
 
   const level = getLevelById(levelId);
 
@@ -72,6 +73,12 @@ export default function PlayLevel({ params }: PageProps) {
     const retryParam = searchParams.get("retry") === "true";
     const alreadyCompleted = state.completedLevels.includes(levelId);
     setIsRetry(retryParam || alreadyCompleted);
+    // Reset game state on retry navigation
+    if (retryParam) {
+      setCompleted(false);
+      setXpEarned(0);
+      setPlayKey((k) => k + 1);
+    }
   }, [searchParams, levelId]);
 
   const handleComplete = useCallback(
@@ -135,7 +142,7 @@ export default function PlayLevel({ params }: PageProps) {
           isRetry={isRetry}
         />
       ) : (
-        <LevelComponent onComplete={handleComplete} />
+        <LevelComponent key={playKey} onComplete={handleComplete} />
       )}
     </GameShell>
   );
