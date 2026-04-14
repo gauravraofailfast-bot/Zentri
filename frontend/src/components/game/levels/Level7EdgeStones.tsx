@@ -148,15 +148,20 @@ export default function Level7EdgeStones({ onComplete }: Props) {
   }
 
   // Animated triangle based on animAngle
-  const baseX = 50;
-  const baseY = 200;
-  const baseLen = 200;
-  const rightX = baseX + baseLen;
-  const rightY = baseY;
+  // Fixed hypotenuse — both sides computed from the angle so the triangle
+  // visually morphs: at 0° adjacent fills the hyp, at 90° opposite fills it.
+  const originX = 50;
+  const originY = 200;
+  const hyp = 200; // fixed hypotenuse length
   const rad = (animAngle * Math.PI) / 180;
-  const oppLen = baseLen * Math.tan(rad);
+  const adjLen = hyp * Math.cos(rad);
+  const oppLen = hyp * Math.sin(rad);
+  const rightX = originX + adjLen;
+  const rightY = originY;
   const topX = rightX;
-  const topY = baseY - Math.min(oppLen, 180);
+  const topY = originY - oppLen;
+  const baseX = originX;
+  const baseY = originY;
 
   // Visualization phases
   if (phase === "visualize" || phase === "visualize-90") {
@@ -195,7 +200,7 @@ export default function Level7EdgeStones({ onComplete }: Props) {
           />
 
           {/* Right angle at bottom-right */}
-          {topY < baseY - 15 && (
+          {adjLen > 20 && oppLen > 20 && (
             <polyline
               points={`${rightX - 12},${rightY} ${rightX - 12},${rightY - 12} ${rightX},${rightY - 12}`}
               fill="none"
@@ -224,16 +229,18 @@ export default function Level7EdgeStones({ onComplete }: Props) {
           </text>
 
           {/* Side labels */}
-          <text
-            x={(baseX + rightX) / 2}
-            y={baseY + 20}
-            textAnchor="middle"
-            fill="#00cec9"
-            fontSize="11"
-          >
-            adjacent
-          </text>
-          {topY < baseY - 20 && (
+          {adjLen > 30 && (
+            <text
+              x={(baseX + rightX) / 2}
+              y={baseY + 20}
+              textAnchor="middle"
+              fill="#00cec9"
+              fontSize="11"
+            >
+              adjacent
+            </text>
+          )}
+          {oppLen > 30 && (
             <text
               x={rightX + 14}
               y={(baseY + topY) / 2}
@@ -243,6 +250,17 @@ export default function Level7EdgeStones({ onComplete }: Props) {
               opp
             </text>
           )}
+          {/* Hypotenuse label */}
+          <text
+            x={(baseX + topX) / 2 - 20}
+            y={(baseY + topY) / 2}
+            textAnchor="middle"
+            fill="#fdcb6e"
+            fontSize="11"
+            opacity={0.5}
+          >
+            hyp
+          </text>
         </svg>
 
         <div className="text-center mb-6">
