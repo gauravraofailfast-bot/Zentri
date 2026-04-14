@@ -336,9 +336,9 @@ export default function Level13TowerRescue({ onComplete }: Props) {
           {/* Rescue ladder animation */}
           {ladderExtended && (
             <motion.line
-              x1={observerX + 10}
-              y1={groundY}
-              x2={towerX - 15}
+              x1={observerX}
+              y1={groundY - 12}
+              x2={towerX}
               y2={towerTopY}
               stroke="#00cec9"
               strokeWidth="2"
