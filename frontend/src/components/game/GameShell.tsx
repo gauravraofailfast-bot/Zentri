@@ -30,7 +30,7 @@ export default function GameShell({ levelId, xp, children }: GameShellProps) {
         </Link>
 
         <div className="text-center">
-          <p className="text-[10px] uppercase tracking-[0.15em] text-white/25">
+          <p className="text-[10px] uppercase tracking-[0.15em] text-white/40">
             {world?.title}
           </p>
           <p className="text-sm font-medium">{level?.title}</p>

@@ -185,7 +185,7 @@ export default function Level3RatioChain({ onComplete }: { onComplete: (xp: numb
         animate={{ opacity: 1, y: 0 }}
         className="text-center max-w-md mx-auto"
       >
-        <p className="text-xs uppercase tracking-[0.2em] text-white/25 mb-4">
+        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">
           World 1 &middot; Level 3
         </p>
         <h2 className="text-2xl font-bold mb-4">The Ratio Chain</h2>
@@ -388,7 +388,7 @@ export default function Level3RatioChain({ onComplete }: { onComplete: (xp: numb
         </motion.div>
 
         {/* Pythagoras hint */}
-        <p className="text-center text-xs text-white/25 mb-4">
+        <p className="text-center text-xs text-white/40 mb-4">
           a&sup2; + b&sup2; = c&sup2;
         </p>
 
@@ -474,7 +474,7 @@ export default function Level3RatioChain({ onComplete }: { onComplete: (xp: numb
                     ? "bg-success/10 border-success/30 text-success"
                     : active
                       ? "bg-accent/10 border-accent/40 text-accent-light"
-                      : "bg-white/[0.02] border-white/[0.06] text-white/20"
+                      : "bg-white/[0.02] border-white/[0.06] text-white/30"
                 }`}
               >
                 {item.name} = {filled ? `${item.num}/${item.den}` : "?/?"}

@@ -47,7 +47,7 @@ export default function Journey() {
             className="relative"
           >
             {/* Step number — subtle */}
-            <span className="text-xs font-mono text-white/15 uppercase tracking-widest mb-4 block">
+            <span className="text-xs font-mono text-white/35 uppercase tracking-widest mb-4 block">
               0{i + 1}
             </span>
 

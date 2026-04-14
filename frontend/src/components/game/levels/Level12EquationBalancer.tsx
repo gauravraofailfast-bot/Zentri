@@ -184,7 +184,7 @@ export default function Level12EquationBalancer({ onComplete }: Props) {
         animate={{ opacity: 1, y: 0 }}
         className="text-center max-w-md mx-auto"
       >
-        <p className="text-xs uppercase tracking-[0.2em] text-white/25 mb-4">
+        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">
           World 3 &middot; Level 12
         </p>
         <h2 className="text-2xl font-bold mb-4">The Equation Balancer</h2>
@@ -273,7 +273,7 @@ export default function Level12EquationBalancer({ onComplete }: Props) {
                     ? "text-success"
                     : isCurrent
                       ? "text-accent-light animate-spin"
-                      : "text-white/15"
+                      : "text-white/35"
                 }`}
                 style={isCurrent ? { animationDuration: "3s" } : undefined}
               >
@@ -287,7 +287,7 @@ export default function Level12EquationBalancer({ onComplete }: Props) {
                 ) : isCurrent ? (
                   <span className="text-white/50">{s.prompt}</span>
                 ) : (
-                  <span className="text-white/15">Step {i + 1}</span>
+                  <span className="text-white/35">Step {i + 1}</span>
                 )}
               </div>
             </div>
@@ -306,7 +306,7 @@ export default function Level12EquationBalancer({ onComplete }: Props) {
             className={
               answered && stepIdx === round.steps.length - 1
                 ? "text-success text-sm"
-                : "text-white/15 text-sm"
+                : "text-white/35 text-sm"
             }
           >
             =
@@ -315,7 +315,7 @@ export default function Level12EquationBalancer({ onComplete }: Props) {
             className={
               answered && stepIdx === round.steps.length - 1
                 ? "text-success text-sm font-bold"
-                : "text-white/15 text-sm"
+                : "text-white/35 text-sm"
             }
           >
             {answered && stepIdx === round.steps.length - 1

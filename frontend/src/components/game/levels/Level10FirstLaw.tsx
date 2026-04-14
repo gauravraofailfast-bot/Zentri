@@ -154,7 +154,7 @@ export default function Level10FirstLaw({ onComplete }: Props) {
         animate={{ opacity: 1, y: 0 }}
         className="text-center max-w-md mx-auto"
       >
-        <p className="text-xs uppercase tracking-[0.2em] text-white/25 mb-4">
+        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">
           World 3 &middot; Level 10
         </p>
         <h2 className="text-2xl font-bold mb-4">The First Law</h2>

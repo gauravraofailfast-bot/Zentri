@@ -231,7 +231,7 @@ export default function Level4SizeDoesntMatter({
         animate={{ opacity: 1, y: 0 }}
         className="text-center max-w-md mx-auto"
       >
-        <p className="text-xs uppercase tracking-[0.2em] text-white/25 mb-4">
+        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">
           World 1 &middot; Level 4
         </p>
         <h2 className="text-2xl font-bold mb-4">Size Doesn&apos;t Matter</h2>

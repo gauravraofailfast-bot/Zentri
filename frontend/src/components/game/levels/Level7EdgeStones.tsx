@@ -126,7 +126,7 @@ export default function Level7EdgeStones({ onComplete }: Props) {
         animate={{ opacity: 1, y: 0 }}
         className="text-center max-w-md mx-auto"
       >
-        <p className="text-xs uppercase tracking-[0.2em] text-white/25 mb-4">
+        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">
           World 2 &middot; Level 7
         </p>
         <h2 className="text-2xl font-bold mb-4">The Edge Stones</h2>
@@ -338,7 +338,7 @@ export default function Level7EdgeStones({ onComplete }: Props) {
         >
           {/* Static reference triangle */}
           <div className="mb-4">
-            <p className="text-xs text-white/25">
+            <p className="text-xs text-white/40">
               {phase === "zero-ratios"
                 ? "At 0°: opposite = 0, adjacent = hypotenuse"
                 : "At 90°: adjacent = 0, opposite = hypotenuse"}

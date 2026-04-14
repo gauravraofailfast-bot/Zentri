@@ -122,7 +122,7 @@ export default function Level2RatioBuilder({ onComplete }: Props) {
         animate={{ opacity: 1, y: 0 }}
         className="text-center max-w-md mx-auto"
       >
-        <p className="text-xs uppercase tracking-[0.2em] text-white/25 mb-4">
+        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">
           World 1 &middot; Level 2
         </p>
         <h2 className="text-2xl font-bold mb-4">Ratio Builder</h2>
@@ -305,7 +305,7 @@ export default function Level2RatioBuilder({ onComplete }: Props) {
                   ? phase === "correct" || phase === "den"
                     ? "text-foreground border-success/50"
                     : "text-danger border-danger/50"
-                  : "text-white/20 border-white/10"
+                  : "text-white/30 border-white/10"
               }`}
             >
               {selectedNum ?? "?"}
@@ -316,14 +316,14 @@ export default function Level2RatioBuilder({ onComplete }: Props) {
                   ? phase === "correct"
                     ? "text-foreground border-success/50"
                     : "text-danger border-danger/50"
-                  : "text-white/20"
+                  : "text-white/30"
               }`}
             >
               {selectedDen ?? "?"}
             </span>
           </div>
         </div>
-        <p className="text-xs text-white/25 mt-2">
+        <p className="text-xs text-white/40 mt-2">
           {phase === "num"
             ? "Tap the numerator"
             : phase === "den"

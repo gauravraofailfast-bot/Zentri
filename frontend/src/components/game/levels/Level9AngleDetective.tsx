@@ -61,7 +61,7 @@ export default function Level9AngleDetective({ onComplete }: Props) {
         animate={{ opacity: 1, y: 0 }}
         className="text-center max-w-md mx-auto"
       >
-        <p className="text-xs uppercase tracking-[0.2em] text-white/25 mb-4">
+        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">
           World 2 &middot; Level 9
         </p>
         <h2 className="text-2xl font-bold mb-4">Angle Detective</h2>
@@ -152,7 +152,7 @@ export default function Level9AngleDetective({ onComplete }: Props) {
                 : "bg-surface border-white/[0.08]"
             }`}
           >
-            <p className="text-xs uppercase tracking-[0.15em] text-white/25 mb-3">
+            <p className="text-xs uppercase tracking-[0.15em] text-white/40 mb-3">
               Find the angle
             </p>
             <p className="text-2xl font-bold text-accent-light">

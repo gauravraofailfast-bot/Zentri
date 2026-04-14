@@ -143,7 +143,7 @@ export default function TrigQuestHub() {
                                 />
                               )}
                             </span>
-                            <span className="font-mono text-[11px] text-white/20 w-5">
+                            <span className="font-mono text-[11px] text-white/35 w-5">
                               {level.number}
                             </span>
                             <div className="flex-1">
@@ -168,7 +168,7 @@ export default function TrigQuestHub() {
                             <span className="w-6 text-center flex-shrink-0 text-white/15 text-xs">
                               {isLocked ? "\u25CF" : "\u25CB"}
                             </span>
-                            <span className="font-mono text-[11px] text-white/15 w-5">
+                            <span className="font-mono text-[11px] text-white/35 w-5">
                               {level.number}
                             </span>
                             <div className="flex-1">
@@ -180,7 +180,7 @@ export default function TrigQuestHub() {
                                 {level.subtitle}
                               </span>
                             </div>
-                            <span className="text-[10px] text-white/10">
+                            <span className="text-[10px] text-white/40">
                               {!level.implemented
                                 ? "coming soon"
                                 : "locked"}

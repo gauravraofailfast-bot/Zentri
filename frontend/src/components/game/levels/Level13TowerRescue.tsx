@@ -109,7 +109,7 @@ export default function Level13TowerRescue({ onComplete }: Props) {
         animate={{ opacity: 1, y: 0 }}
         className="text-center max-w-md mx-auto"
       >
-        <p className="text-xs uppercase tracking-[0.2em] text-white/25 mb-4">
+        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">
           World 4 &middot; Level 13
         </p>
         <h2 className="text-2xl font-bold mb-4">Tower Rescue</h2>
@@ -373,7 +373,7 @@ export default function Level13TowerRescue({ onComplete }: Props) {
               </button>
             ))}
           </div>
-          <p className="text-[10px] text-white/20 mt-3">
+          <p className="text-[10px] text-white/35 mt-3">
             Hint: You know the opposite and adjacent sides
           </p>
         </motion.div>

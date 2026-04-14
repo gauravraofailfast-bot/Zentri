@@ -163,7 +163,7 @@ export default function Level11OtherTwoLaws({ onComplete }: Props) {
         animate={{ opacity: 1, y: 0 }}
         className="text-center max-w-md mx-auto"
       >
-        <p className="text-xs uppercase tracking-[0.2em] text-white/25 mb-4">
+        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">
           World 3 &middot; Level 11
         </p>
         <h2 className="text-2xl font-bold mb-4">The Other Two Laws</h2>
@@ -253,7 +253,7 @@ export default function Level11OtherTwoLaws({ onComplete }: Props) {
 
       {/* Identity being derived (visual) */}
       {!isApply && (
-        <div className="flex justify-center gap-1 text-sm text-white/20 mb-6">
+        <div className="flex justify-center gap-1 text-sm text-white/35 mb-6">
           {currentSteps.map((s, i) => (
             <span
               key={i}

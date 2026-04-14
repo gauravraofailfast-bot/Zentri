@@ -40,7 +40,7 @@ export default function SubjectBrowser() {
               <span className="text-base md:text-lg text-white/60 group-hover:text-foreground group-hover:translate-x-2 transition-all duration-300">
                 {subject.name}
               </span>
-              <span className="flex items-center gap-2 text-sm text-white/25 group-hover:text-white/50 transition-all duration-300">
+              <span className="flex items-center gap-2 text-sm text-white/40 group-hover:text-white/50 transition-all duration-300">
                 <span>{subject.gameCount} games</span>
                 <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   &rarr;

@@ -105,7 +105,7 @@ export default function Level1NameSides({ onComplete }: Props) {
         animate={{ opacity: 1, y: 0 }}
         className="text-center max-w-md mx-auto"
       >
-        <p className="text-xs uppercase tracking-[0.2em] text-white/25 mb-4">
+        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">
           World 1 &middot; Level 1
         </p>
         <h2 className="text-2xl font-bold mb-4">Name the Sides</h2>

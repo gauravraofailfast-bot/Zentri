@@ -78,7 +78,7 @@ export default function Level5The45Stone({ onComplete }: Props) {
         animate={{ opacity: 1, y: 0 }}
         className="text-center max-w-md mx-auto"
       >
-        <p className="text-xs uppercase tracking-[0.2em] text-white/25 mb-4">
+        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">
           World 2 &middot; Level 5
         </p>
         <h2 className="text-2xl font-bold mb-4">The 45&deg; Stone</h2>

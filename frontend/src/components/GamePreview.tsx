@@ -92,17 +92,17 @@ export default function GamePreview() {
                       />
                     )}
                     {level.status === "locked" && (
-                      <span className="text-white/20">&#9679;</span>
+                      <span className="text-white/35">&#9679;</span>
                     )}
                   </span>
 
-                  <span className="font-mono text-[11px] text-white/25 w-6">
+                  <span className="font-mono text-[11px] text-white/40 w-6">
                     {level.num}
                   </span>
                   <span>{level.title}</span>
 
                   {level.status === "locked" && (
-                    <span className="ml-auto text-[10px] text-white/15">
+                    <span className="ml-auto text-[10px] text-white/35">
                       locked
                     </span>
                   )}
@@ -122,7 +122,7 @@ export default function GamePreview() {
                   <span className="text-warning font-semibold">3 days</span>
                 </span>
               </div>
-              <span className="text-xs text-white/20">1 of 5 complete</span>
+              <span className="text-xs text-white/35">1 of 5 complete</span>
             </div>
           </div>
 
