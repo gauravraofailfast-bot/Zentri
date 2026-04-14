@@ -13,6 +13,7 @@ interface Scenario {
   description: string;
   known: string;
   unknown: string;
+  unknownSide: "base" | "ladder" | "height";
   correctRatio: "sin" | "cos" | "tan";
   ratioHint: string;
   equation: string;
@@ -32,7 +33,8 @@ const scenarios: Scenario[] = [
     description:
       "A ladder 10m long makes a 60\u00B0 angle with the ground. How far is its foot from the wall?",
     known: "Ladder (hypotenuse) = 10m, angle with ground = 60\u00B0",
-    unknown: "base (adjacent)",
+    unknown: "base",
+    unknownSide: "base" as const,
     correctRatio: "cos",
     ratioHint: "You know the hypotenuse and need the adjacent side",
     equation: "cos 60\u00B0 = base / 10",
@@ -49,7 +51,8 @@ const scenarios: Scenario[] = [
     description:
       "A ladder rests against a wall at 45\u00B0 with the ground. Its foot is 8m from the wall. How long is the ladder?",
     known: "Base = 8m, angle with ground = 45\u00B0",
-    unknown: "ladder (hypotenuse)",
+    unknown: "ladder",
+    unknownSide: "ladder" as const,
     correctRatio: "cos",
     ratioHint: "You know the adjacent side and need the hypotenuse",
     equation: "cos 45\u00B0 = 8 / ladder",
@@ -66,7 +69,8 @@ const scenarios: Scenario[] = [
     description:
       "A 15m ladder makes a 30\u00B0 angle with the wall. How high up the wall does it reach?",
     known: "Ladder = 15m, angle with wall = 30\u00B0 (so angle with ground = 60\u00B0)",
-    unknown: "height (opposite to ground angle)",
+    unknown: "height",
+    unknownSide: "height" as const,
     correctRatio: "sin",
     ratioHint: "Angle with ground is 60\u00B0. You need the opposite side (height) and know the hypotenuse",
     equation: "sin 60\u00B0 = height / 15",
@@ -327,16 +331,53 @@ export default function Level14LadderMission({ onComplete }: Props) {
             </text>
           )}
 
-          {/* Unknown label */}
-          <text
-            x={wallX + 18}
-            y={(ladderTopY + groundY) / 2}
-            fill="rgba(253,203,110,0.5)"
-            fontSize="12"
-            fontWeight="bold"
-          >
-            ? = {scenario.unknown}
-          </text>
+          {/* Unknown label — positioned near the unknown side */}
+          {scenario.unknownSide === "ladder" && (
+            <text
+              x={(footX + wallX) / 2 - 25}
+              y={(groundY + ladderTopY) / 2 - 8}
+              fill="rgba(253,203,110,0.5)"
+              fontSize="12"
+              fontWeight="bold"
+              transform={`rotate(-35, ${(footX + wallX) / 2 - 25}, ${(groundY + ladderTopY) / 2 - 8})`}
+            >
+              ladder = ?
+            </text>
+          )}
+          {scenario.unknownSide === "base" && (
+            <text
+              x={(footX + wallX) / 2}
+              y={groundY + 18}
+              textAnchor="middle"
+              fill="rgba(253,203,110,0.5)"
+              fontSize="12"
+              fontWeight="bold"
+            >
+              base = ?
+            </text>
+          )}
+          {scenario.unknownSide === "height" && (
+            <text
+              x={wallX + 12}
+              y={(ladderTopY + groundY) / 2}
+              fill="rgba(253,203,110,0.5)"
+              fontSize="10"
+              fontWeight="bold"
+            >
+              {"height"}
+            </text>
+          )}
+          {scenario.unknownSide === "height" && (
+            <text
+              x={wallX + 12}
+              y={(ladderTopY + groundY) / 2 + 14}
+              fill="rgba(253,203,110,0.5)"
+              fontSize="10"
+              fontWeight="bold"
+            >
+              {"= ?"}
+            </text>
+          )}
 
           {/* Success checkmark */}
           {ladderSlid && (
