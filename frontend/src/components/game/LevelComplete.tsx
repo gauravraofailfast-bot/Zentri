@@ -127,12 +127,19 @@ export default function LevelComplete({
             Next Level &rarr;
           </Link>
         )}
-        {leftoverXp > 0 && (
+        {leftoverXp > 0 ? (
           <Link
             href={`/trigquest/play/${levelId}?retry=true`}
             className="px-6 py-3 text-sm text-white/30 border border-white/10 rounded-full hover:text-white/50 hover:border-white/20 transition-all duration-300 text-center"
           >
             Retry for up to {leftoverXp} more XP
+          </Link>
+        ) : (
+          <Link
+            href={`/trigquest/play/${levelId}?retry=true`}
+            className="px-6 py-3 text-sm text-white/30 border border-white/10 rounded-full hover:text-white/50 hover:border-white/20 transition-all duration-300 text-center"
+          >
+            Play Again
           </Link>
         )}
         <Link
