@@ -6,8 +6,22 @@ import GameShell from "@/components/game/GameShell";
 import LevelComplete from "@/components/game/LevelComplete";
 import Level1NameSides from "@/components/game/levels/Level1NameSides";
 import Level2RatioBuilder from "@/components/game/levels/Level2RatioBuilder";
+import Level3RatioChain from "@/components/game/levels/Level3RatioChain";
+import Level4SizeDoesntMatter from "@/components/game/levels/Level4SizeDoesntMatter";
+import Level5The45Stone from "@/components/game/levels/Level5The45Stone";
+import Level6The3060Stones from "@/components/game/levels/Level6The3060Stones";
+import Level7EdgeStones from "@/components/game/levels/Level7EdgeStones";
 import Level8SpeedRecall from "@/components/game/levels/Level8SpeedRecall";
+import Level9AngleDetective from "@/components/game/levels/Level9AngleDetective";
+import Level10FirstLaw from "@/components/game/levels/Level10FirstLaw";
+import Level11OtherTwoLaws from "@/components/game/levels/Level11OtherTwoLaws";
+import Level12EquationBalancer from "@/components/game/levels/Level12EquationBalancer";
 import Level13TowerRescue from "@/components/game/levels/Level13TowerRescue";
+import Level14LadderMission from "@/components/game/levels/Level14LadderMission";
+import Level15DontForgetHeight from "@/components/game/levels/Level15DontForgetHeight";
+import Level16StackedObjects from "@/components/game/levels/Level16StackedObjects";
+import Level17ShadowHunter from "@/components/game/levels/Level17ShadowHunter";
+import Level18TheRealWorld from "@/components/game/levels/Level18TheRealWorld";
 import { getLevelById } from "@/lib/gameData";
 import { loadGameState, completeLevel } from "@/lib/gameState";
 
@@ -21,8 +35,22 @@ const levelComponents: Record<
 > = {
   "name-the-sides": Level1NameSides,
   "ratio-builder": Level2RatioBuilder,
+  "ratio-chain": Level3RatioChain,
+  "size-doesnt-matter": Level4SizeDoesntMatter,
+  "the-45-stone": Level5The45Stone,
+  "the-30-60-stones": Level6The3060Stones,
+  "edge-stones": Level7EdgeStones,
   "speed-recall": Level8SpeedRecall,
+  "angle-detective": Level9AngleDetective,
+  "first-law": Level10FirstLaw,
+  "other-two-laws": Level11OtherTwoLaws,
+  "equation-balancer": Level12EquationBalancer,
   "tower-rescue": Level13TowerRescue,
+  "ladder-mission": Level14LadderMission,
+  "dont-forget-height": Level15DontForgetHeight,
+  "stacked-objects": Level16StackedObjects,
+  "shadow-hunter": Level17ShadowHunter,
+  "the-real-world": Level18TheRealWorld,
 };
 
 export default function PlayLevel({ params }: PageProps) {

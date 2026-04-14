@@ -20,13 +20,12 @@ Shares Firestore (project: sprintup-eecbe) with SprintUp but has its own fronten
 ## Quality Gate (Mandatory)
 No task is complete until `npm run verify` passes.
 
-## Data-Driven Task Completion (Mandatory)
-When building features derived from structured data (e.g., NCERT curriculum chapters, level lists, module lists):
-1. **Enumerate ALL items first** — create a checklist of every item that must be built (e.g., all 18 levels across all 4 worlds, not just a sample).
-2. **Build ALL items** — do not skip items or mark them as "coming soon." If the data says 5 levels exist in a world, build all 5.
-3. **Test end-to-end per module** — complete every item within a module (e.g., all levels in World 1) and verify the full progression before moving to the next module.
-4. **No partial delivery** — a module is not done until every item in it is implemented and tested. Cross-module progression must also be verified after all modules are complete.
-5. **Mark `implemented: true`** in data files only after the component exists and compiles.
+## Planning-Execution Alignment
+Every level defined in `gameData.ts` must have a corresponding working component. Do not add levels to the data file with `implemented: false` — either build the level or don't list it. When adding a new game chapter:
+1. Decide how many levels the chapter needs based on the NCERT curriculum.
+2. Build ALL of them before committing — no partial delivery.
+3. Test full progression within each world, then cross-world progression.
+4. Only then commit and mark as done.
 
 ## UI Design Inspiration
 - Duolingo (gamification, streaks, XP)
