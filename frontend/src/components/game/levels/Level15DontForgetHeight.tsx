@@ -91,6 +91,7 @@ export default function Level15DontForgetHeight({ onComplete }: Props) {
   const [scenarioIdx, setScenarioIdx] = useState(0);
   const [mistakes, setMistakes] = useState(0);
   const [shake, setShake] = useState(false);
+  const [showHint, setShowHint] = useState(false);
 
   const scenario = scenarios[scenarioIdx];
 
@@ -128,6 +129,7 @@ export default function Level15DontForgetHeight({ onComplete }: Props) {
           if (scenarioIdx < scenarios.length - 1) {
             setScenarioIdx((s) => s + 1);
             setPhase("scene");
+            setShowHint(false);
           } else {
             setPhase("done");
             const bonus = mistakes === 0 ? 20 : 0;
@@ -175,13 +177,10 @@ export default function Level15DontForgetHeight({ onComplete }: Props) {
     );
   }
 
-  // SVG layout
+  // SVG layout constants
   const groundY = 220;
-  const buildingX = 250;
-  const observerX = 60;
-  const buildingTopY = 50;
-  const buildingH = groundY - buildingTopY;
-  const observerTopY = groundY - 20; // small figure
+  const isDepression = scenarioIdx === 2;
+  const angleLabels = ["60°", "30°", "60°↓"];
 
   return (
     <motion.div
@@ -233,133 +232,331 @@ export default function Level15DontForgetHeight({ onComplete }: Props) {
             strokeWidth="1"
           />
 
-          {/* Building/pole */}
-          <rect
-            x={buildingX - 18}
-            y={buildingTopY}
-            width="36"
-            height={buildingH}
-            fill="rgba(255,255,255,0.06)"
-            stroke="rgba(255,255,255,0.15)"
-            strokeWidth="1"
-            rx="2"
-          />
+          {isDepression ? (
+            /* ===== SCENARIO 3: Depression — man on top of tower, boat at ground ===== */
+            <>
+              {(() => {
+                const towerX = 230;
+                const towerTopY = 50;
+                const towerH = groundY - towerTopY;
+                const manHeight = 18;
+                const manHeadY = towerTopY - manHeight - 8;
+                const eyeY = manHeadY + 5;
+                const boatX = 60;
+                const boatY = groundY;
 
-          {/* Windows */}
-          {[0.2, 0.4, 0.6, 0.8].map((frac) => (
-            <rect
-              key={frac}
-              x={buildingX - 8}
-              y={buildingTopY + buildingH * frac - 6}
-              width="16"
-              height="8"
-              fill="rgba(253,203,110,0.12)"
-              rx="1"
-            />
-          ))}
+                return (
+                  <>
+                    {/* Tower */}
+                    <rect
+                      x={towerX - 22}
+                      y={towerTopY}
+                      width="44"
+                      height={towerH}
+                      fill="rgba(255,255,255,0.06)"
+                      stroke="rgba(255,255,255,0.15)"
+                      strokeWidth="1"
+                      rx="2"
+                    />
 
-          {/* Object height label */}
-          <text
-            x={buildingX + 24}
-            y={(buildingTopY + groundY) / 2}
-            fill="rgba(255,255,255,0.3)"
-            fontSize="10"
-          >
-            {scenario.objectHeight}m
-          </text>
+                    {/* Windows */}
+                    {[0.2, 0.4, 0.6, 0.8].map((frac) => (
+                      <rect
+                        key={frac}
+                        x={towerX - 8}
+                        y={towerTopY + towerH * frac - 6}
+                        width="16"
+                        height="8"
+                        fill="rgba(253,203,110,0.12)"
+                        rx="1"
+                      />
+                    ))}
 
-          {/* Observer figure */}
-          <circle
-            cx={observerX}
-            cy={observerTopY - 8}
-            r="5"
-            fill="rgba(162,155,254,0.5)"
-          />
-          <line
-            x1={observerX}
-            y1={observerTopY - 3}
-            x2={observerX}
-            y2={groundY}
-            stroke="rgba(162,155,254,0.3)"
-            strokeWidth="1.5"
-          />
+                    {/* Tower height label */}
+                    <text
+                      x={towerX + 28}
+                      y={(towerTopY + groundY) / 2}
+                      fill="rgba(255,255,255,0.3)"
+                      fontSize="10"
+                    >
+                      {scenario.objectHeight}m
+                    </text>
 
-          {/* Observer height label */}
-          <text
-            x={observerX - 25}
-            y={observerTopY + 5}
-            fill="rgba(162,155,254,0.4)"
-            fontSize="9"
-          >
-            {scenario.observerHeight}m
-          </text>
+                    {/* Man standing on top of tower */}
+                    <circle
+                      cx={towerX}
+                      cy={manHeadY}
+                      r="5"
+                      fill="rgba(162,155,254,0.5)"
+                    />
+                    <line
+                      x1={towerX}
+                      y1={manHeadY + 5}
+                      x2={towerX}
+                      y2={towerTopY}
+                      stroke="rgba(162,155,254,0.3)"
+                      strokeWidth="1.5"
+                    />
 
-          {/* Effective height dotted line */}
-          <line
-            x1={observerX}
-            y1={observerTopY - 8}
-            x2={buildingX - 18}
-            y2={observerTopY - 8}
-            stroke="rgba(253,203,110,0.15)"
-            strokeWidth="1"
-            strokeDasharray="3,3"
-          />
+                    {/* Man height label */}
+                    <text
+                      x={towerX + 8}
+                      y={(manHeadY + towerTopY) / 2 + 3}
+                      fill="rgba(162,155,254,0.4)"
+                      fontSize="9"
+                    >
+                      {scenario.observerHeight}m
+                    </text>
 
-          {/* Dashed line of sight to top */}
-          <line
-            x1={observerX}
-            y1={observerTopY - 8}
-            x2={buildingX}
-            y2={buildingTopY}
-            stroke="rgba(162,155,254,0.2)"
-            strokeWidth="1"
-            strokeDasharray="4,4"
-          />
+                    {/* Boat at ground level */}
+                    <ellipse
+                      cx={boatX}
+                      cy={boatY - 4}
+                      rx="18"
+                      ry="5"
+                      fill="rgba(162,155,254,0.15)"
+                      stroke="rgba(162,155,254,0.3)"
+                      strokeWidth="1"
+                    />
+                    <line
+                      x1={boatX - 10}
+                      y1={boatY - 8}
+                      x2={boatX}
+                      y2={boatY - 18}
+                      stroke="rgba(162,155,254,0.3)"
+                      strokeWidth="1"
+                    />
+                    <line
+                      x1={boatX + 10}
+                      y1={boatY - 8}
+                      x2={boatX}
+                      y2={boatY - 18}
+                      stroke="rgba(162,155,254,0.3)"
+                      strokeWidth="1"
+                    />
+                    <text
+                      x={boatX - 10}
+                      y={boatY + 16}
+                      fill="rgba(162,155,254,0.35)"
+                      fontSize="9"
+                    >
+                      boat
+                    </text>
 
-          {/* Effective height brace */}
-          <line
-            x1={buildingX - 25}
-            y1={observerTopY - 8}
-            x2={buildingX - 25}
-            y2={buildingTopY}
-            stroke="rgba(253,203,110,0.3)"
-            strokeWidth="1"
-            strokeDasharray="2,2"
-          />
-          <text
-            x={buildingX - 50}
-            y={(observerTopY - 8 + buildingTopY) / 2}
-            fill="rgba(253,203,110,0.5)"
-            fontSize="10"
-            fontWeight="bold"
-          >
-            h?
-          </text>
+                    {/* Horizontal line from man's eye (for depression angle reference) */}
+                    <line
+                      x1={boatX - 10}
+                      y1={eyeY}
+                      x2={towerX}
+                      y2={eyeY}
+                      stroke="rgba(255,255,255,0.08)"
+                      strokeWidth="1"
+                      strokeDasharray="3,3"
+                    />
 
-          {/* Angle arc */}
-          <path
-            d={`M ${observerX + 35},${observerTopY - 8} A 35 35 0 0 0 ${observerX + 25},${observerTopY - 30}`}
-            fill="none"
-            stroke="rgba(162,155,254,0.4)"
-            strokeWidth="1"
-          />
-          <text
-            x={observerX + 34}
-            y={observerTopY - 16}
-            fill="#a29bfe"
-            fontSize="11"
-            fontWeight="bold"
-          >
-            {scenarioIdx === 2 ? "60\u00B0\u2193" : "angle"}
-          </text>
+                    {/* Line of sight — man looking DOWN to boat */}
+                    <line
+                      x1={towerX}
+                      y1={eyeY}
+                      x2={boatX}
+                      y2={boatY - 4}
+                      stroke="rgba(162,155,254,0.25)"
+                      strokeWidth="1"
+                      strokeDasharray="4,4"
+                    />
 
-          {/* Right angle */}
-          <polyline
-            points={`${buildingX - 28},${groundY} ${buildingX - 28},${groundY - 10} ${buildingX - 18},${groundY - 10}`}
-            fill="none"
-            stroke="rgba(255,255,255,0.15)"
-            strokeWidth="1"
-          />
+                    {/* Effective height brace (total height = tower + man) */}
+                    <line
+                      x1={boatX + 30}
+                      y1={eyeY}
+                      x2={boatX + 30}
+                      y2={boatY}
+                      stroke="rgba(253,203,110,0.3)"
+                      strokeWidth="1"
+                      strokeDasharray="2,2"
+                    />
+                    <text
+                      x={boatX + 36}
+                      y={(eyeY + boatY) / 2 + 3}
+                      fill="rgba(253,203,110,0.5)"
+                      fontSize="10"
+                      fontWeight="bold"
+                    >
+                      h?
+                    </text>
+
+                    {/* Angle of depression arc (below horizontal at man's eye) */}
+                    <path
+                      d={`M ${towerX - 35},${eyeY} A 35 35 0 0 1 ${towerX - 25},${eyeY + 22}`}
+                      fill="none"
+                      stroke="rgba(162,155,254,0.4)"
+                      strokeWidth="1"
+                    />
+                    <text
+                      x={towerX - 52}
+                      y={eyeY + 18}
+                      fill="#a29bfe"
+                      fontSize="11"
+                      fontWeight="bold"
+                    >
+                      60°↓
+                    </text>
+
+                    {/* Right angle at ground below tower */}
+                    <polyline
+                      points={`${towerX - 32},${groundY} ${towerX - 32},${groundY - 10} ${towerX - 22},${groundY - 10}`}
+                      fill="none"
+                      stroke="rgba(255,255,255,0.15)"
+                      strokeWidth="1"
+                    />
+                  </>
+                );
+              })()}
+            </>
+          ) : (
+            /* ===== SCENARIOS 1 & 2: Elevation — observer on ground, looking up ===== */
+            <>
+              {(() => {
+                const buildingX = 250;
+                const buildingTopY = 50;
+                const buildingH = groundY - buildingTopY;
+                const observerX = 60;
+                const observerTopY = groundY - 20;
+
+                return (
+                  <>
+                    {/* Building/pole */}
+                    <rect
+                      x={buildingX - 18}
+                      y={buildingTopY}
+                      width="36"
+                      height={buildingH}
+                      fill="rgba(255,255,255,0.06)"
+                      stroke="rgba(255,255,255,0.15)"
+                      strokeWidth="1"
+                      rx="2"
+                    />
+
+                    {/* Windows */}
+                    {[0.2, 0.4, 0.6, 0.8].map((frac) => (
+                      <rect
+                        key={frac}
+                        x={buildingX - 8}
+                        y={buildingTopY + buildingH * frac - 6}
+                        width="16"
+                        height="8"
+                        fill="rgba(253,203,110,0.12)"
+                        rx="1"
+                      />
+                    ))}
+
+                    {/* Object height label */}
+                    <text
+                      x={buildingX + 24}
+                      y={(buildingTopY + groundY) / 2}
+                      fill="rgba(255,255,255,0.3)"
+                      fontSize="10"
+                    >
+                      {scenario.objectHeight}m
+                    </text>
+
+                    {/* Observer figure */}
+                    <circle
+                      cx={observerX}
+                      cy={observerTopY - 8}
+                      r="5"
+                      fill="rgba(162,155,254,0.5)"
+                    />
+                    <line
+                      x1={observerX}
+                      y1={observerTopY - 3}
+                      x2={observerX}
+                      y2={groundY}
+                      stroke="rgba(162,155,254,0.3)"
+                      strokeWidth="1.5"
+                    />
+
+                    {/* Observer height label */}
+                    <text
+                      x={observerX - 25}
+                      y={observerTopY + 5}
+                      fill="rgba(162,155,254,0.4)"
+                      fontSize="9"
+                    >
+                      {scenario.observerHeight}m
+                    </text>
+
+                    {/* Horizontal dotted line from observer eye level */}
+                    <line
+                      x1={observerX}
+                      y1={observerTopY - 8}
+                      x2={buildingX - 18}
+                      y2={observerTopY - 8}
+                      stroke="rgba(253,203,110,0.15)"
+                      strokeWidth="1"
+                      strokeDasharray="3,3"
+                    />
+
+                    {/* Dashed line of sight to top */}
+                    <line
+                      x1={observerX}
+                      y1={observerTopY - 8}
+                      x2={buildingX}
+                      y2={buildingTopY}
+                      stroke="rgba(162,155,254,0.2)"
+                      strokeWidth="1"
+                      strokeDasharray="4,4"
+                    />
+
+                    {/* Effective height brace */}
+                    <line
+                      x1={buildingX - 25}
+                      y1={observerTopY - 8}
+                      x2={buildingX - 25}
+                      y2={buildingTopY}
+                      stroke="rgba(253,203,110,0.3)"
+                      strokeWidth="1"
+                      strokeDasharray="2,2"
+                    />
+                    <text
+                      x={buildingX - 50}
+                      y={(observerTopY - 8 + buildingTopY) / 2}
+                      fill="rgba(253,203,110,0.5)"
+                      fontSize="10"
+                      fontWeight="bold"
+                    >
+                      h?
+                    </text>
+
+                    {/* Angle arc */}
+                    <path
+                      d={`M ${observerX + 35},${observerTopY - 8} A 35 35 0 0 0 ${observerX + 25},${observerTopY - 30}`}
+                      fill="none"
+                      stroke="rgba(162,155,254,0.4)"
+                      strokeWidth="1"
+                    />
+                    <text
+                      x={observerX + 34}
+                      y={observerTopY - 16}
+                      fill="#a29bfe"
+                      fontSize="11"
+                      fontWeight="bold"
+                    >
+                      {angleLabels[scenarioIdx]}
+                    </text>
+
+                    {/* Right angle */}
+                    <polyline
+                      points={`${buildingX - 28},${groundY} ${buildingX - 28},${groundY - 10} ${buildingX - 18},${groundY - 10}`}
+                      fill="none"
+                      stroke="rgba(255,255,255,0.15)"
+                      strokeWidth="1"
+                    />
+                  </>
+                );
+              })()}
+            </>
+          )}
         </svg>
       </motion.div>
 
@@ -422,11 +619,24 @@ export default function Level15DontForgetHeight({ onComplete }: Props) {
           animate={{ opacity: 1, y: 0 }}
           className="text-center"
         >
-          <p className="text-sm text-white/50 mb-2">{scenario.equation}</p>
-          <p className="text-sm text-white/50 mb-4">{scenario.computeSteps}</p>
-          <p className="text-sm text-white/70 mb-4 font-medium">
+          <p className="text-sm text-white/70 mb-3 font-medium">
             {scenario.unknown} = ?
           </p>
+          <button
+            onClick={() => setShowHint((h) => !h)}
+            className="text-[11px] text-accent-light/60 hover:text-accent-light transition-colors mb-4"
+          >
+            {showHint ? "Hide hint ▲" : "Need a hint? ▼"}
+          </button>
+          {showHint && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              className="mb-4 px-4 py-2 rounded-lg bg-white/[0.03] border border-white/[0.06] inline-block"
+            >
+              <p className="text-xs text-white/40">{scenario.equation}</p>
+            </motion.div>
+          )}
           <div className="grid grid-cols-2 gap-3 max-w-xs mx-auto">
             {scenario.answerOptions.map((opt) => (
               <button

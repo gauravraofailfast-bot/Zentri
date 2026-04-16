@@ -172,6 +172,7 @@ export default function Level18TheRealWorld({ onComplete }: Props) {
   const [stepIdx, setStepIdx] = useState(0);
   const [mistakes, setMistakes] = useState(0);
   const [shake, setShake] = useState(false);
+  const [showHint, setShowHint] = useState(false);
 
   const scenario = scenarios[scenarioIdx];
   const currentStep = scenario.steps[stepIdx];
@@ -184,6 +185,7 @@ export default function Level18TheRealWorld({ onComplete }: Props) {
           setPhase("step1-compute");
         } else {
           setPhase("step2-compute");
+          setShowHint(false);
         }
       } else {
         setShake(true);
@@ -204,6 +206,7 @@ export default function Level18TheRealWorld({ onComplete }: Props) {
               setScenarioIdx((s) => s + 1);
               setStepIdx(0);
               setPhase("scene");
+              setShowHint(false);
             } else {
               setPhase("done");
               const bonus = mistakes === 0 ? 20 : 0;
@@ -870,13 +873,24 @@ export default function Level18TheRealWorld({ onComplete }: Props) {
               Step {stepIdx + 1} of {scenario.steps.length}
             </p>
           )}
-          <p className="text-sm text-white/50 mb-2">{currentStep.equation}</p>
-          <p className="text-sm text-white/50 mb-4">
-            {currentStep.computeSteps}
-          </p>
-          <p className="text-sm text-white/70 mb-4 font-medium">
+          <p className="text-sm text-white/70 mb-3 font-medium">
             {currentStep.label} = ?
           </p>
+          <button
+            onClick={() => setShowHint((h) => !h)}
+            className="text-[11px] text-accent-light/60 hover:text-accent-light transition-colors mb-4"
+          >
+            {showHint ? "Hide hint ▲" : "Need a hint? ▼"}
+          </button>
+          {showHint && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              className="mb-4 px-4 py-2 rounded-lg bg-white/[0.03] border border-white/[0.06] inline-block"
+            >
+              <p className="text-xs text-white/40">{currentStep.equation}</p>
+            </motion.div>
+          )}
           <div className="grid grid-cols-2 gap-3 max-w-xs mx-auto">
             {currentStep.answerOptions.map((opt) => (
               <button
@@ -928,13 +942,24 @@ export default function Level18TheRealWorld({ onComplete }: Props) {
           <p className="text-xs text-white/30 mb-2">
             Step {stepIdx + 1} of {scenario.steps.length}
           </p>
-          <p className="text-sm text-white/50 mb-2">{currentStep.equation}</p>
-          <p className="text-sm text-white/50 mb-4">
-            {currentStep.computeSteps}
-          </p>
-          <p className="text-sm text-white/70 mb-4 font-medium">
+          <p className="text-sm text-white/70 mb-3 font-medium">
             {currentStep.label} = ?
           </p>
+          <button
+            onClick={() => setShowHint((h) => !h)}
+            className="text-[11px] text-accent-light/60 hover:text-accent-light transition-colors mb-4"
+          >
+            {showHint ? "Hide hint ▲" : "Need a hint? ▼"}
+          </button>
+          {showHint && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              className="mb-4 px-4 py-2 rounded-lg bg-white/[0.03] border border-white/[0.06] inline-block"
+            >
+              <p className="text-xs text-white/40">{currentStep.equation}</p>
+            </motion.div>
+          )}
           <div className="grid grid-cols-2 gap-3 max-w-xs mx-auto">
             {currentStep.answerOptions.map((opt) => (
               <button

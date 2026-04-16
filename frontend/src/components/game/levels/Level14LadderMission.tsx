@@ -90,6 +90,7 @@ export default function Level14LadderMission({ onComplete }: Props) {
   const [scenarioIdx, setScenarioIdx] = useState(0);
   const [mistakes, setMistakes] = useState(0);
   const [shake, setShake] = useState(false);
+  const [showHint, setShowHint] = useState(false);
   const [ladderSlid, setLadderSlid] = useState(false);
 
   const scenario = scenarios[scenarioIdx];
@@ -117,6 +118,7 @@ export default function Level14LadderMission({ onComplete }: Props) {
             setScenarioIdx((s) => s + 1);
             setPhase("scene");
             setLadderSlid(false);
+            setShowHint(false);
           } else {
             setPhase("done");
             const bonus = mistakes === 0 ? 20 : 0;
@@ -432,11 +434,24 @@ export default function Level14LadderMission({ onComplete }: Props) {
           animate={{ opacity: 1, y: 0 }}
           className="text-center"
         >
-          <p className="text-sm text-white/50 mb-2">{scenario.equation}</p>
-          <p className="text-sm text-white/50 mb-4">{scenario.computeSteps}</p>
-          <p className="text-sm text-white/70 mb-4 font-medium">
+          <p className="text-sm text-white/70 mb-3 font-medium">
             {scenario.unknown} = ?
           </p>
+          <button
+            onClick={() => setShowHint((h) => !h)}
+            className="text-[11px] text-accent-light/60 hover:text-accent-light transition-colors mb-4"
+          >
+            {showHint ? "Hide hint ▲" : "Need a hint? ▼"}
+          </button>
+          {showHint && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              className="mb-4 px-4 py-2 rounded-lg bg-white/[0.03] border border-white/[0.06] inline-block"
+            >
+              <p className="text-xs text-white/40">{scenario.equation}</p>
+            </motion.div>
+          )}
           <div className="grid grid-cols-2 gap-3 max-w-xs mx-auto">
             {scenario.answerOptions.map((opt) => (
               <button
