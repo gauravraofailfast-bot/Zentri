@@ -267,20 +267,22 @@ export default function Level18TheRealWorld({ onComplete }: Props) {
       case "cliff":
         return (
           <>
-            {/* Cliff */}
-            <rect
-              x="20"
-              y="60"
-              width="60"
-              height={groundY - 60}
-              fill="rgba(255,255,255,0.06)"
-              stroke="rgba(255,255,255,0.15)"
-              strokeWidth="1"
-              rx="2"
+            {/* Cliff — rocky polygon with jagged face */}
+            <path
+              d={`M 18,${groundY} L 18,192 L 24,178 L 19,160 L 27,143 L 22,126 L 30,110 L 26,92 L 34,76 L 29,63 L 50,58 L 82,60 L 82,${groundY} Z`}
+              fill="rgba(105,90,68,0.22)"
+              stroke="rgba(165,145,108,0.32)"
+              strokeWidth="1.5"
             />
-            <text x="35" y="145" fill="rgba(255,255,255,0.3)" fontSize="10">
-              60m
-            </text>
+            {/* Rock strata / layering lines */}
+            <line x1="22" y1="186" x2="66" y2="183" stroke="rgba(165,145,108,0.13)" strokeWidth="1" />
+            <line x1="25" y1="155" x2="68" y2="151" stroke="rgba(165,145,108,0.13)" strokeWidth="1" />
+            <line x1="27" y1="124" x2="66" y2="121" stroke="rgba(165,145,108,0.13)" strokeWidth="1" />
+            <line x1="30" y1="94" x2="64" y2="91" stroke="rgba(165,145,108,0.13)" strokeWidth="1" />
+            {/* Cliff top surface */}
+            <rect x="29" y="56" width="53" height="5" fill="rgba(140,120,85,0.28)" rx="1" />
+            {/* 60m height label */}
+            <text x="72" y="145" fill="rgba(255,255,255,0.3)" fontSize="10">60m</text>
 
             {/* Water */}
             <rect
@@ -367,11 +369,26 @@ export default function Level18TheRealWorld({ onComplete }: Props) {
               strokeDasharray="3,3"
             />
 
-            {/* Angle labels */}
-            <text x="90" y="78" fill="#a29bfe" fontSize="10">
+            {/* Angle arcs at observer (50, 60) — depression angles below horizontal */}
+            {/* 30° arc (far ship) — gold */}
+            <path
+              d="M 90,60 A 40 40 0 0 1 84,80"
+              fill="none"
+              stroke="rgba(253,203,110,0.5)"
+              strokeWidth="1.2"
+            />
+            {/* 60° arc (near ship) — teal */}
+            <path
+              d="M 105,60 A 55 55 0 0 1 77,108"
+              fill="none"
+              stroke="rgba(0,184,148,0.5)"
+              strokeWidth="1.2"
+            />
+            {/* Angle labels — different colors to distinguish */}
+            <text x="90" y="76" fill="rgba(253,203,110,0.85)" fontSize="10" fontWeight="bold">
               30&deg;
             </text>
-            <text x="70" y="95" fill="rgba(0,184,148,0.6)" fontSize="10">
+            <text x="68" y="100" fill="rgba(0,184,148,0.85)" fontSize="10" fontWeight="bold">
               60&deg;
             </text>
 
@@ -485,17 +502,21 @@ export default function Level18TheRealWorld({ onComplete }: Props) {
       case "flagstaff":
         return (
           <>
-            {/* Building */}
-            <rect
-              x="220"
-              y="100"
-              width="40"
-              height={groundY - 100}
-              fill="rgba(255,255,255,0.06)"
-              stroke="rgba(255,255,255,0.15)"
-              strokeWidth="1"
-              rx="2"
-            />
+            {/* Building — realistic facade */}
+            {/* Foundation */}
+            <rect x="218" y={groundY - 5} width="44" height="5" fill="rgba(140,130,170,0.15)" stroke="rgba(200,185,230,0.2)" strokeWidth="1" />
+            {/* Main body */}
+            <rect x="220" y="108" width="40" height={groundY - 113} fill="rgba(140,130,170,0.07)" stroke="rgba(200,185,230,0.18)" strokeWidth="1" />
+            {/* Rooftop cornice */}
+            <rect x="218" y="100" width="44" height="10" fill="rgba(140,130,170,0.14)" stroke="rgba(200,185,230,0.25)" strokeWidth="1" />
+            {/* Side depth */}
+            <rect x="260" y="102" width="4" height={groundY - 102} fill="rgba(0,0,0,0.1)" />
+            {/* Windows — 2 columns × 3 rows */}
+            {[0.2, 0.5, 0.8].map((frac) =>
+              [228, 244].map((xPos) => (
+                <rect key={`${frac}-${xPos}`} x={xPos} y={108 + (groundY - 128) * frac} width="8" height="9" fill="rgba(253,203,110,0.2)" rx="1" />
+              ))
+            )}
             {/* Flagpole */}
             <line
               x1="240"
@@ -541,11 +562,26 @@ export default function Level18TheRealWorld({ onComplete }: Props) {
               strokeDasharray="4,4"
             />
 
-            {/* Angles */}
-            <text x="100" y={groundY - 20} fill="#a29bfe" fontSize="10">
+            {/* Angle arcs at observer (60, groundY-12) */}
+            {/* 30° arc — purple */}
+            <path
+              d={`M ${60 + 38},${groundY - 12} A 38 38 0 0 0 ${60 + 33},${groundY - 31}`}
+              fill="none"
+              stroke="rgba(162,155,254,0.5)"
+              strokeWidth="1.2"
+            />
+            {/* 45° arc — gold */}
+            <path
+              d={`M ${60 + 50},${groundY - 12} A 50 50 0 0 0 ${60 + 35},${groundY - 40}`}
+              fill="none"
+              stroke="rgba(253,203,110,0.5)"
+              strokeWidth="1.2"
+            />
+            {/* Angle labels */}
+            <text x="100" y={groundY - 18} fill="#a29bfe" fontSize="10" fontWeight="bold">
               30&deg;
             </text>
-            <text x="100" y={groundY - 35} fill="rgba(253,203,110,0.6)" fontSize="10">
+            <text x="102" y={groundY - 34} fill="rgba(253,203,110,0.85)" fontSize="10" fontWeight="bold">
               45&deg;
             </text>
 
@@ -570,26 +606,14 @@ export default function Level18TheRealWorld({ onComplete }: Props) {
       case "twopoles":
         return (
           <>
-            {/* Left pole */}
-            <line
-              x1="40"
-              y1={groundY}
-              x2="40"
-              y2="80"
-              stroke="rgba(255,255,255,0.3)"
-              strokeWidth="3"
-              strokeLinecap="round"
-            />
-            {/* Right pole */}
-            <line
-              x1="280"
-              y1={groundY}
-              x2="280"
-              y2="80"
-              stroke="rgba(255,255,255,0.3)"
-              strokeWidth="3"
-              strokeLinecap="round"
-            />
+            {/* Left pole — with base and cap */}
+            <rect x="34" y={groundY - 6} width="12" height="6" fill="rgba(200,185,230,0.2)" stroke="rgba(200,185,230,0.3)" strokeWidth="1" rx="1" />
+            <line x1="40" y1={groundY - 6} x2="40" y2="83" stroke="rgba(255,255,255,0.3)" strokeWidth="3" strokeLinecap="round" />
+            <rect x="36" y="80" width="8" height="4" fill="rgba(200,185,230,0.25)" stroke="rgba(200,185,230,0.35)" strokeWidth="1" rx="1" />
+            {/* Right pole — with base and cap */}
+            <rect x="274" y={groundY - 6} width="12" height="6" fill="rgba(200,185,230,0.2)" stroke="rgba(200,185,230,0.3)" strokeWidth="1" rx="1" />
+            <line x1="280" y1={groundY - 6} x2="280" y2="83" stroke="rgba(255,255,255,0.3)" strokeWidth="3" strokeLinecap="round" />
+            <rect x="276" y="80" width="8" height="4" fill="rgba(200,185,230,0.25)" stroke="rgba(200,185,230,0.35)" strokeWidth="1" rx="1" />
 
             {/* Road */}
             <rect
@@ -632,11 +656,26 @@ export default function Level18TheRealWorld({ onComplete }: Props) {
               strokeDasharray="4,4"
             />
 
+            {/* Angle arcs at observer (100, groundY-5) */}
+            {/* 60° arc to left pole — purple */}
+            <path
+              d={`M ${100 - 35},${groundY - 5} A 35 35 0 0 0 ${100 - 17},${groundY - 31}`}
+              fill="none"
+              stroke="rgba(162,155,254,0.5)"
+              strokeWidth="1.2"
+            />
+            {/* 30° arc to right pole — gold */}
+            <path
+              d={`M ${100 + 40},${groundY - 5} A 40 40 0 0 0 ${100 + 35},${groundY - 20}`}
+              fill="none"
+              stroke="rgba(253,203,110,0.5)"
+              strokeWidth="1.2"
+            />
             {/* Angle labels */}
-            <text x="72" y={groundY - 14} fill="#a29bfe" fontSize="10">
+            <text x="68" y={groundY - 18} fill="#a29bfe" fontSize="10" fontWeight="bold">
               60&deg;
             </text>
-            <text x="118" y={groundY - 14} fill="rgba(253,203,110,0.6)" fontSize="10">
+            <text x="118" y={groundY - 18} fill="rgba(253,203,110,0.85)" fontSize="10" fontWeight="bold">
               30&deg;
             </text>
 
@@ -661,17 +700,22 @@ export default function Level18TheRealWorld({ onComplete }: Props) {
       case "river":
         return (
           <>
-            {/* Tower on far bank */}
-            <rect
-              x="135"
-              y="60"
-              width="30"
-              height={groundY - 60}
-              fill="rgba(255,255,255,0.06)"
-              stroke="rgba(255,255,255,0.15)"
-              strokeWidth="1"
-              rx="2"
-            />
+            {/* Tower on far bank — realistic facade */}
+            {/* Foundation */}
+            <rect x="133" y={groundY - 6} width="34" height="6" fill="rgba(140,130,170,0.15)" stroke="rgba(200,185,230,0.2)" strokeWidth="1" />
+            {/* Main body */}
+            <rect x="135" y="70" width="30" height={groundY - 76} fill="rgba(140,130,170,0.07)" stroke="rgba(200,185,230,0.18)" strokeWidth="1" />
+            {/* Parapet */}
+            {[136, 142, 149, 156].map((xPos) => (
+              <rect key={xPos} x={xPos} y="60" width="5" height="12" fill="rgba(140,130,170,0.16)" stroke="rgba(200,185,230,0.22)" strokeWidth="1" />
+            ))}
+            <rect x="135" y="70" width="30" height="4" fill="rgba(140,130,170,0.12)" />
+            {/* Side depth */}
+            <rect x="165" y="62" width="3" height={groundY - 62} fill="rgba(0,0,0,0.1)" />
+            {/* Windows */}
+            {[0.25, 0.55, 0.8].map((frac) => (
+              <rect key={frac} x="143" y={70 + (groundY - 86) * frac} width="14" height="8" fill="rgba(253,203,110,0.2)" rx="1" />
+            ))}
 
             {/* River */}
             <rect
@@ -753,11 +797,26 @@ export default function Level18TheRealWorld({ onComplete }: Props) {
               strokeDasharray="4,4"
             />
 
-            {/* Angles */}
-            <text x="208" y={groundY - 16} fill="rgba(0,184,148,0.6)" fontSize="10">
+            {/* Angle arcs */}
+            {/* P1 60° arc — teal */}
+            <path
+              d={`M ${230 - 30},${groundY - 8} A 30 30 0 0 0 ${230 - 15},${groundY - 27}`}
+              fill="none"
+              stroke="rgba(0,184,148,0.5)"
+              strokeWidth="1.2"
+            />
+            {/* P2 30° arc — gold */}
+            <path
+              d={`M ${270 - 32},${groundY - 8} A 32 32 0 0 0 ${270 - 28},${groundY - 18}`}
+              fill="none"
+              stroke="rgba(253,203,110,0.5)"
+              strokeWidth="1.2"
+            />
+            {/* Angle labels */}
+            <text x="205" y={groundY - 18} fill="rgba(0,184,148,0.85)" fontSize="10" fontWeight="bold">
               60&deg;
             </text>
-            <text x="258" y={groundY - 20} fill="rgba(253,203,110,0.6)" fontSize="10">
+            <text x="252" y={groundY - 22} fill="rgba(253,203,110,0.85)" fontSize="10" fontWeight="bold">
               30&deg;
             </text>
 
@@ -821,14 +880,8 @@ export default function Level18TheRealWorld({ onComplete }: Props) {
           <rect width="320" height="260" fill="url(#sky18)" />
 
           {/* Ground */}
-          <line
-            x1="0"
-            y1={groundY}
-            x2="320"
-            y2={groundY}
-            stroke="rgba(255,255,255,0.1)"
-            strokeWidth="1"
-          />
+          <rect x="0" y={groundY} width="320" height="5" fill="rgba(60,50,80,0.15)" />
+          <line x1="0" y1={groundY} x2="320" y2={groundY} stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
 
           {renderScene()}
         </svg>

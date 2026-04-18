@@ -183,40 +183,32 @@ export default function Level13TowerRescue({ onComplete }: Props) {
           </defs>
           <rect width="320" height="260" fill="url(#sky)" />
 
-          {/* Ground */}
-          <line
-            x1="0"
-            y1={groundY}
-            x2="320"
-            y2={groundY}
-            stroke="rgba(255,255,255,0.1)"
-            strokeWidth="1"
-          />
-
-          {/* Tower */}
-          <rect
-            x={towerX - 15}
-            y={towerTopY}
-            width="30"
-            height={towerHeight}
-            fill="rgba(255,255,255,0.06)"
-            stroke="rgba(255,255,255,0.15)"
-            strokeWidth="1"
-            rx="2"
-          />
-
-          {/* Windows on tower */}
-          {[0.2, 0.4, 0.6, 0.8].map((frac) => (
-            <rect
-              key={frac}
-              x={towerX - 6}
-              y={towerTopY + towerHeight * frac - 6}
-              width="12"
-              height="8"
-              fill="rgba(253,203,110,0.15)"
-              rx="1"
-            />
+          {/* Ground with subtle texture */}
+          <rect x="0" y={groundY} width="320" height="5" fill="rgba(60,50,80,0.15)" />
+          <line x1="0" y1={groundY} x2="320" y2={groundY} stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
+          {[40, 100, 160, 210].map((x) => (
+            <path key={x} d={`M ${x},${groundY} Q ${x+3},${groundY-5} ${x+7},${groundY}`} fill="none" stroke="rgba(80,160,60,0.12)" strokeWidth="1.5" />
           ))}
+
+          {/* Building — realistic facade */}
+          {/* Foundation slab */}
+          <rect x={towerX - 18} y={groundY - 5} width="36" height="5" fill="rgba(140,130,170,0.15)" stroke="rgba(200,185,230,0.2)" strokeWidth="1" />
+          {/* Main body */}
+          <rect x={towerX - 15} y={towerTopY + 8} width="30" height={towerHeight - 13} fill="rgba(140,130,170,0.07)" stroke="rgba(200,185,230,0.18)" strokeWidth="1" />
+          {/* Rooftop cornice ledge */}
+          <rect x={towerX - 18} y={towerTopY} width="36" height="10" fill="rgba(140,130,170,0.14)" stroke="rgba(200,185,230,0.25)" strokeWidth="1" />
+          {/* Side depth shadow */}
+          <rect x={towerX + 15} y={towerTopY + 2} width="4" height={towerHeight - 2} fill="rgba(0,0,0,0.1)" />
+          {/* Floor dividers */}
+          {[0.33, 0.66].map((frac) => (
+            <line key={frac} x1={towerX - 15} y1={towerTopY + 8 + (towerHeight - 13) * frac} x2={towerX + 15} y2={towerTopY + 8 + (towerHeight - 13) * frac} stroke="rgba(200,185,230,0.07)" strokeWidth="1" />
+          ))}
+          {/* Windows — 2 columns × 4 rows */}
+          {[0.13, 0.37, 0.61, 0.85].map((frac) =>
+            [-9, 2].map((xOff) => (
+              <rect key={`${frac}-${xOff}`} x={towerX + xOff} y={towerTopY + 8 + (towerHeight - 20) * frac} width="7" height="8" fill="rgba(253,203,110,0.2)" rx="1" />
+            ))
+          )}
 
           {/* Person on top */}
           <motion.g

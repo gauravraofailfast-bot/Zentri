@@ -222,15 +222,12 @@ export default function Level15DontForgetHeight({ onComplete }: Props) {
           </defs>
           <rect width="320" height="260" fill="url(#sky15)" />
 
-          {/* Ground */}
-          <line
-            x1="0"
-            y1={groundY}
-            x2="320"
-            y2={groundY}
-            stroke="rgba(255,255,255,0.1)"
-            strokeWidth="1"
-          />
+          {/* Ground with subtle texture */}
+          <rect x="0" y={groundY} width="320" height="5" fill="rgba(60,50,80,0.15)" />
+          <line x1="0" y1={groundY} x2="320" y2={groundY} stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
+          {[30, 100, 160, 230].map((x) => (
+            <path key={x} d={`M ${x},${groundY} Q ${x+3},${groundY-5} ${x+7},${groundY}`} fill="none" stroke="rgba(80,160,60,0.12)" strokeWidth="1.5" />
+          ))}
 
           {isDepression ? (
             /* ===== SCENARIO 3: Depression — man on top of tower, boat at ground ===== */
@@ -247,30 +244,29 @@ export default function Level15DontForgetHeight({ onComplete }: Props) {
 
                 return (
                   <>
-                    {/* Tower */}
-                    <rect
-                      x={towerX - 22}
-                      y={towerTopY}
-                      width="44"
-                      height={towerH}
-                      fill="rgba(255,255,255,0.06)"
-                      stroke="rgba(255,255,255,0.15)"
-                      strokeWidth="1"
-                      rx="2"
-                    />
-
-                    {/* Windows */}
-                    {[0.2, 0.4, 0.6, 0.8].map((frac) => (
-                      <rect
-                        key={frac}
-                        x={towerX - 8}
-                        y={towerTopY + towerH * frac - 6}
-                        width="16"
-                        height="8"
-                        fill="rgba(253,203,110,0.12)"
-                        rx="1"
-                      />
+                    {/* Tower — realistic facade */}
+                    {/* Foundation */}
+                    <rect x={towerX - 24} y={groundY - 5} width="48" height="5" fill="rgba(140,130,170,0.15)" stroke="rgba(200,185,230,0.2)" strokeWidth="1" />
+                    {/* Main body */}
+                    <rect x={towerX - 22} y={towerTopY + 10} width="44" height={towerH - 15} fill="rgba(140,130,170,0.07)" stroke="rgba(200,185,230,0.18)" strokeWidth="1" />
+                    {/* Parapet / battlement top */}
+                    {[-18, -8, 2, 12].map((xOff) => (
+                      <rect key={xOff} x={towerX + xOff} y={towerTopY} width="8" height="12" fill="rgba(140,130,170,0.16)" stroke="rgba(200,185,230,0.22)" strokeWidth="1" />
                     ))}
+                    {/* Parapet base connecting them */}
+                    <rect x={towerX - 22} y={towerTopY + 8} width="44" height="4" fill="rgba(140,130,170,0.12)" stroke="rgba(200,185,230,0.18)" strokeWidth="1" />
+                    {/* Side depth */}
+                    <rect x={towerX + 22} y={towerTopY + 2} width="4" height={towerH - 2} fill="rgba(0,0,0,0.1)" />
+                    {/* Floor dividers */}
+                    {[0.33, 0.66].map((frac) => (
+                      <line key={frac} x1={towerX - 22} y1={towerTopY + 12 + (towerH - 17) * frac} x2={towerX + 22} y2={towerTopY + 12 + (towerH - 17) * frac} stroke="rgba(200,185,230,0.07)" strokeWidth="1" />
+                    ))}
+                    {/* Windows — 2 columns × 4 rows */}
+                    {[0.12, 0.36, 0.60, 0.84].map((frac) =>
+                      [-12, 2].map((xOff) => (
+                        <rect key={`${frac}-${xOff}`} x={towerX + xOff} y={towerTopY + 12 + (towerH - 24) * frac} width="8" height="9" fill="rgba(253,203,110,0.2)" rx="1" />
+                      ))
+                    )}
 
                     {/* Tower height label */}
                     <text
@@ -425,30 +421,25 @@ export default function Level15DontForgetHeight({ onComplete }: Props) {
 
                 return (
                   <>
-                    {/* Building/pole */}
-                    <rect
-                      x={buildingX - 18}
-                      y={buildingTopY}
-                      width="36"
-                      height={buildingH}
-                      fill="rgba(255,255,255,0.06)"
-                      stroke="rgba(255,255,255,0.15)"
-                      strokeWidth="1"
-                      rx="2"
-                    />
-
-                    {/* Windows */}
-                    {[0.2, 0.4, 0.6, 0.8].map((frac) => (
-                      <rect
-                        key={frac}
-                        x={buildingX - 8}
-                        y={buildingTopY + buildingH * frac - 6}
-                        width="16"
-                        height="8"
-                        fill="rgba(253,203,110,0.12)"
-                        rx="1"
-                      />
+                    {/* Building — realistic facade */}
+                    {/* Foundation */}
+                    <rect x={buildingX - 20} y={groundY - 5} width="40" height="5" fill="rgba(140,130,170,0.15)" stroke="rgba(200,185,230,0.2)" strokeWidth="1" />
+                    {/* Main body */}
+                    <rect x={buildingX - 18} y={buildingTopY + 8} width="36" height={buildingH - 13} fill="rgba(140,130,170,0.07)" stroke="rgba(200,185,230,0.18)" strokeWidth="1" />
+                    {/* Rooftop cornice */}
+                    <rect x={buildingX - 20} y={buildingTopY} width="40" height="10" fill="rgba(140,130,170,0.14)" stroke="rgba(200,185,230,0.25)" strokeWidth="1" />
+                    {/* Side depth */}
+                    <rect x={buildingX + 18} y={buildingTopY + 2} width="4" height={buildingH - 2} fill="rgba(0,0,0,0.1)" />
+                    {/* Floor dividers */}
+                    {[0.33, 0.66].map((frac) => (
+                      <line key={frac} x1={buildingX - 18} y1={buildingTopY + 8 + (buildingH - 13) * frac} x2={buildingX + 18} y2={buildingTopY + 8 + (buildingH - 13) * frac} stroke="rgba(200,185,230,0.07)" strokeWidth="1" />
                     ))}
+                    {/* Windows — 2 columns × 4 rows */}
+                    {[0.13, 0.37, 0.61, 0.85].map((frac) =>
+                      [-10, 3].map((xOff) => (
+                        <rect key={`${frac}-${xOff}`} x={buildingX + xOff} y={buildingTopY + 8 + (buildingH - 20) * frac} width="7" height="8" fill="rgba(253,203,110,0.2)" rx="1" />
+                      ))
+                    )}
 
                     {/* Object height label */}
                     <text

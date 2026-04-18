@@ -297,34 +297,25 @@ export default function Level17ShadowHunter({ onComplete }: Props) {
             strokeDasharray="6,4"
           />
 
-          {/* Ground */}
-          <line
-            x1="0"
-            y1={groundY}
-            x2="320"
-            y2={groundY}
-            stroke="rgba(255,255,255,0.1)"
+          {/* Ground — earthy texture */}
+          <rect x="0" y={groundY} width="320" height="6" fill="rgba(80,60,40,0.18)" />
+          <line x1="0" y1={groundY} x2="320" y2={groundY} stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
+          {[20, 80, 140, 200, 270].map((x) => (
+            <path key={x} d={`M ${x},${groundY} Q ${x+3},${groundY-5} ${x+7},${groundY}`} fill="none" stroke="rgba(60,140,40,0.15)" strokeWidth="1.5" />
+          ))}
+
+          {/* Tree trunk — tapered */}
+          <path
+            d={`M ${poleX - 5},${groundY} L ${poleX - 3},${poleTopY + 12} L ${poleX + 3},${poleTopY + 12} L ${poleX + 5},${groundY} Z`}
+            fill="rgba(120,80,40,0.35)"
+            stroke="rgba(160,110,60,0.3)"
             strokeWidth="1"
           />
-
-          {/* Pole/tree */}
-          <line
-            x1={poleX}
-            y1={groundY}
-            x2={poleX}
-            y2={poleTopY}
-            stroke="rgba(255,255,255,0.3)"
-            strokeWidth="3"
-            strokeLinecap="round"
-          />
-
-          {/* Tree crown (small) */}
-          <circle
-            cx={poleX}
-            cy={poleTopY - 6}
-            r="10"
-            fill="rgba(0,184,148,0.15)"
-          />
+          {/* Tree foliage — layered for depth */}
+          <ellipse cx={poleX} cy={poleTopY + 4} rx="16" ry="12" fill="rgba(0,120,60,0.12)" stroke="rgba(0,160,80,0.15)" strokeWidth="1" />
+          <circle cx={poleX - 5} cy={poleTopY - 4} r="11" fill="rgba(0,130,65,0.12)" />
+          <circle cx={poleX + 5} cy={poleTopY - 4} r="11" fill="rgba(0,130,65,0.12)" />
+          <circle cx={poleX} cy={poleTopY - 10} r="12" fill="rgba(0,150,75,0.16)" stroke="rgba(0,180,90,0.12)" strokeWidth="1" />
 
           {/* Shadow on ground — extends RIGHT (opposite to sun) */}
           <line

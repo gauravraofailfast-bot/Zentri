@@ -215,39 +215,27 @@ export default function Level14LadderMission({ onComplete }: Props) {
           </defs>
           <rect width="320" height="260" fill="url(#ladderSky)" />
 
-          {/* Ground */}
-          <line
-            x1="0"
-            y1={groundY}
-            x2="320"
-            y2={groundY}
-            stroke="rgba(255,255,255,0.1)"
-            strokeWidth="1"
-          />
+          {/* Ground with subtle texture */}
+          <rect x="0" y={groundY} width="320" height="5" fill="rgba(60,50,80,0.15)" />
+          <line x1="0" y1={groundY} x2="320" y2={groundY} stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
+          {[30, 90, 150, 190].map((x) => (
+            <path key={x} d={`M ${x},${groundY} Q ${x+3},${groundY-5} ${x+7},${groundY}`} fill="none" stroke="rgba(80,160,60,0.12)" strokeWidth="1.5" />
+          ))}
 
-          {/* Wall */}
-          <rect
-            x={wallX - 5}
-            y={wallTopY}
-            width="10"
-            height={wallHeight}
-            fill="rgba(255,255,255,0.06)"
-            stroke="rgba(255,255,255,0.15)"
-            strokeWidth="1"
-            rx="1"
-          />
-
-          {/* Bricks on wall */}
-          {[0.15, 0.3, 0.45, 0.6, 0.75, 0.9].map((frac) => (
-            <line
-              key={frac}
-              x1={wallX - 5}
-              y1={wallTopY + wallHeight * frac}
-              x2={wallX + 5}
-              y2={wallTopY + wallHeight * frac}
-              stroke="rgba(255,255,255,0.08)"
-              strokeWidth="0.5"
-            />
+          {/* Wall — realistic brick face */}
+          {/* Foundation base */}
+          <rect x={wallX - 14} y={groundY - 5} width="28" height="5" fill="rgba(160,140,110,0.2)" stroke="rgba(200,175,140,0.25)" strokeWidth="1" />
+          {/* Main wall body */}
+          <rect x={wallX - 12} y={wallTopY} width="24" height={wallHeight - 5} fill="rgba(160,140,110,0.1)" stroke="rgba(200,175,140,0.22)" strokeWidth="1" />
+          {/* Wall cap (coping) */}
+          <rect x={wallX - 14} y={wallTopY - 4} width="28" height="6" fill="rgba(160,140,110,0.2)" stroke="rgba(200,175,140,0.28)" strokeWidth="1" />
+          {/* Brick horizontal mortar lines */}
+          {[0.12, 0.24, 0.36, 0.48, 0.60, 0.72, 0.84, 0.96].map((frac) => (
+            <line key={frac} x1={wallX - 12} y1={wallTopY + wallHeight * frac} x2={wallX + 12} y2={wallTopY + wallHeight * frac} stroke="rgba(200,175,140,0.1)" strokeWidth="0.8" />
+          ))}
+          {/* Alternating vertical mortar joints */}
+          {[0.06, 0.18, 0.30, 0.42, 0.54, 0.66, 0.78, 0.90].map((frac, i) => (
+            <line key={frac} x1={wallX + (i % 2 === 0 ? 0 : -5)} y1={wallTopY + wallHeight * frac} x2={wallX + (i % 2 === 0 ? 0 : -5)} y2={wallTopY + wallHeight * (frac + 0.12)} stroke="rgba(200,175,140,0.08)" strokeWidth="0.8" />
           ))}
 
           {/* Ladder */}
