@@ -28,7 +28,7 @@ func load_progress() -> void:
 	if file == null:
 		state = _default_state()
 		return
-	var parsed := JSON.parse_string(file.get_as_text())
+	var parsed: Variant = JSON.parse_string(file.get_as_text())
 	if typeof(parsed) == TYPE_DICTIONARY:
 		state = _default_state()
 		for key in parsed.keys():
@@ -76,7 +76,7 @@ func is_level_unlocked(level_id: String) -> bool:
 	if level.is_empty():
 		return false
 
-	var world_id := level.get("world_id", "")
+	var world_id: String = level.get("world_id", "")
 	if not is_world_unlocked(world_id):
 		return false
 
@@ -95,7 +95,7 @@ func get_level_result(level_id: String) -> Dictionary:
 
 
 func complete_level(result: Dictionary) -> void:
-	var level_id := result.get("level_id", "")
+	var level_id: String = result.get("level_id", "")
 	if level_id.is_empty():
 		return
 
@@ -122,7 +122,7 @@ func _unlock_next_world_if_ready(level_id: String) -> void:
 	if level.is_empty():
 		return
 	var world := ChapterRepository.get_world(level.get("world_id", ""))
-	var gate_level_id := world.get("mastery_gate", {}).get("gate_level_id", "")
+	var gate_level_id: String = world.get("mastery_gate", {}).get("gate_level_id", "")
 	if gate_level_id != level_id:
 		return
 
@@ -134,7 +134,7 @@ func _unlock_next_world_if_ready(level_id: String) -> void:
 		return
 
 	var unlocks: Array = state.get("world_unlocks", []).duplicate()
-	var next_world_id := world_ids[current_index + 1]
+	var next_world_id: String = world_ids[current_index + 1]
 	if not unlocks.has(next_world_id):
 		unlocks.append(next_world_id)
 	state["world_unlocks"] = unlocks

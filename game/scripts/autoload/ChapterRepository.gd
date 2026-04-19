@@ -45,7 +45,7 @@ func _read_json(resource_path: String) -> Dictionary:
 	if file == null:
 		push_error("Could not read JSON at %s" % resource_path)
 		return {}
-	var parsed := JSON.parse_string(file.get_as_text())
+	var parsed: Variant = JSON.parse_string(file.get_as_text())
 	if typeof(parsed) != TYPE_DICTIONARY:
 		push_error("Expected dictionary JSON at %s" % resource_path)
 		return {}
@@ -114,7 +114,7 @@ func get_next_level_id(level_id: String) -> String:
 
 
 func get_template_scene(template_id: String) -> PackedScene:
-	var scene_path := TEMPLATE_SCENES.get(template_id, "")
+	var scene_path: String = TEMPLATE_SCENES.get(template_id, "")
 	if scene_path.is_empty():
 		return null
 	return load(scene_path)
