@@ -83,6 +83,9 @@ export function isLevelUnlocked(
   completedLevels: string[],
   allLevels: { id: string; implemented: boolean }[],
 ): boolean {
+  // In development, unlock all implemented levels for easy testing
+  if (process.env.NODE_ENV === "development") return true;
+
   // Only implemented levels form the unlock chain
   const implementedLevels = allLevels.filter((l) => l.implemented);
   const chainIdx = implementedLevels.findIndex((l) => l.id === levelId);

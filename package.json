@@ -6,10 +6,14 @@
   "scripts": {
     "dev": "cd frontend && npm run dev",
     "build": "cd frontend && npm run build",
+    "verify:game": "node tools/validate_phase1_content.js",
     "test:functions": "cd functions && npm test",
     "test:frontend": "cd frontend && npm test",
-    "verify": "npm run test:functions && npm run test:frontend",
+    "verify": "npm run verify:game && npm run test:functions && npm run test:frontend",
     "install:all": "npm install && cd frontend && npm install && cd ../functions && npm install",
     "emulators": "firebase emulators:start"
+  },
+  "dependencies": {
+    "firebase-admin": "^13.8.0"
   }
 }

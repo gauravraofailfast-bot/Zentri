@@ -1,0 +1,820 @@
+{
+  "pack_id": "phase1_ncert_class10_trigonometry",
+  "title": "NCERT Class 10 Mathematics - Trigonometry Quest",
+  "language": "en",
+  "delivery_target": "android",
+  "offline_first": true,
+  "source_pdfs": [
+    {
+      "chapter": "8",
+      "title": "Introduction to Trigonometry",
+      "file": "res://references/ncert/jemh108.pdf"
+    },
+    {
+      "chapter": "9",
+      "title": "Some Applications of Trigonometry",
+      "file": "res://references/ncert/jemh109.pdf"
+    }
+  ],
+  "supported_templates": [
+    "tool_lab",
+    "triangle_builder",
+    "ratio_forge",
+    "angle_memory_arena",
+    "identity_reactor",
+    "field_mission"
+  ],
+  "mastery_defaults": {
+    "pass_threshold": 0.75,
+    "retry_policy": "unlimited",
+    "remediate_after_misses": 2,
+    "reward_first_pass_xp_bonus": 15
+  },
+  "competencies": [
+    {"id": "spot-right-triangle", "chapter": "8", "description": "Recognise right triangles embedded in real scenes."},
+    {"id": "identify-opposite-adjacent", "chapter": "8", "description": "Identify opposite, adjacent, and hypotenuse from a chosen acute angle."},
+    {"id": "define-primary-ratios", "chapter": "8", "description": "Define sin, cos, and tan using triangle sides."},
+    {"id": "use-reciprocal-ratios", "chapter": "8", "description": "Relate cosec, sec, and cot to reciprocal forms."},
+    {"id": "derive-tan-from-sin-cos", "chapter": "8", "description": "Connect tan and cot to sin and cos."},
+    {"id": "ratio-invariance", "chapter": "8", "description": "Understand that trigonometric ratios remain constant for the same angle."},
+    {"id": "solve-from-known-ratio", "chapter": "8", "description": "Recover missing sides and ratios from one known ratio in a right triangle."},
+    {"id": "derive-45-values", "chapter": "8", "description": "Derive trigonometric values for 45 degrees."},
+    {"id": "derive-30-60-values", "chapter": "8", "description": "Derive trigonometric values for 30 degrees and 60 degrees."},
+    {"id": "understand-zero-ninety", "chapter": "8", "description": "Understand 0 degree and 90 degree values and undefined ratios."},
+    {"id": "memorize-standard-values", "chapter": "8", "description": "Recall the standard value table from 0 to 90 degrees."},
+    {"id": "solve-specific-angle-mix", "chapter": "8", "description": "Use the standard values in mixed calculations and angle recovery."},
+    {"id": "prove-sin-cos-identity", "chapter": "8", "description": "Derive sin^2 A + cos^2 A = 1."},
+    {"id": "derive-sec-tan-identity", "chapter": "8", "description": "Derive sec^2 A - tan^2 A = 1."},
+    {"id": "derive-cosec-cot-identity", "chapter": "8", "description": "Derive cosec^2 A = 1 + cot^2 A."},
+    {"id": "express-ratios-in-terms", "chapter": "8", "description": "Express one trigonometric ratio in terms of another."},
+    {"id": "solve-identity-proofs", "chapter": "8", "description": "Complete multi-step identity proofs modeled on NCERT."},
+    {"id": "apply-line-of-sight", "chapter": "9", "description": "Use line of sight, angle of elevation, and angle of depression correctly."},
+    {"id": "solve-tower-ladder-cases", "chapter": "9", "description": "Solve tower, ladder, and direct elevation problems."},
+    {"id": "adjust-observer-height", "chapter": "9", "description": "Account for observer height or pedestal height in applications."},
+    {"id": "solve-shadow-poles-canal", "chapter": "9", "description": "Solve shadow, equal-pole, and canal-width patterns."},
+    {"id": "solve-moving-object-cases", "chapter": "9", "description": "Handle lighthouse, balloon, and moving-car style applications."},
+    {"id": "capstone-multi-step-trig", "chapter": "9", "description": "Combine multiple ratios and scene constraints in a capstone mission."}
+  ],
+  "revision_pool": [
+    {"id": "rev-side-angle-swap", "competency": "identify-opposite-adjacent", "prompt": "Swap the reference angle and re-label the sides."},
+    {"id": "rev-ratio-reciprocal", "competency": "use-reciprocal-ratios", "prompt": "Match each ratio to its reciprocal partner."},
+    {"id": "rev-angle-values", "competency": "memorize-standard-values", "prompt": "Tap the correct standard value before the timer expires."},
+    {"id": "rev-identity-reset", "competency": "solve-identity-proofs", "prompt": "Repair the broken identity in two valid moves."},
+    {"id": "rev-field-mission", "competency": "apply-line-of-sight", "prompt": "Re-aim the line of sight and confirm the correct angle type."}
+  ],
+  "worlds": [
+    {
+      "id": "triangle_lab",
+      "number": 1,
+      "title": "World 1 - Triangle Lab",
+      "learning_objective": "Build the language of trigonometry from right triangles and ratio meaning.",
+      "unlock_rule": {"type": "always_unlocked"},
+      "mastery_gate": {
+        "gate_level_id": "triangle-lab-mastery",
+        "pass_threshold": 0.72,
+        "retry_policy": "unlimited",
+        "remediation_route": "revision_queue",
+        "encouragement_copy": "You are building the foundations. Retry, refine, and lock in the angle-to-side story."
+      },
+      "level_ids": [
+        "hidden-triangles",
+        "angle-side-lab",
+        "ratio-link-forge",
+        "reciprocal-switchboard",
+        "same-angle-signal",
+        "triangle-lab-mastery"
+      ]
+    },
+    {
+      "id": "sacred_angles",
+      "number": 2,
+      "title": "World 2 - Sacred Angles",
+      "learning_objective": "Derive, remember, and deploy the standard values from 0 to 90 degrees.",
+      "unlock_rule": {"type": "complete_world", "world_id": "triangle_lab"},
+      "mastery_gate": {
+        "gate_level_id": "sacred-angles-mastery",
+        "pass_threshold": 0.75,
+        "retry_policy": "unlimited",
+        "remediation_route": "revision_queue",
+        "encouragement_copy": "Standard values should feel familiar, not frightening. You can always practice and come back stronger."
+      },
+      "level_ids": [
+        "forty-five-crystal",
+        "thirty-sixty-anvil",
+        "edge-angle-observatory",
+        "table-memory-arena",
+        "sacred-angles-mastery"
+      ]
+    },
+    {
+      "id": "identity_forge",
+      "number": 3,
+      "title": "World 3 - Identity Forge",
+      "learning_objective": "Turn triangle facts into identities and learn to transform expressions with confidence.",
+      "unlock_rule": {"type": "complete_world", "world_id": "sacred_angles"},
+      "mastery_gate": {
+        "gate_level_id": "identity-forge-mastery",
+        "pass_threshold": 0.78,
+        "retry_policy": "unlimited",
+        "remediation_route": "revision_queue",
+        "encouragement_copy": "Each proof is a sequence of valid moves. Slow thinking is good thinking here."
+      },
+      "level_ids": [
+        "pythagorean-core",
+        "sec-tan-reactor",
+        "cosec-cot-reactor",
+        "ratio-expression-converter",
+        "identity-forge-mastery"
+      ]
+    },
+    {
+      "id": "height_seeker",
+      "number": 4,
+      "title": "World 4 - Height Seeker",
+      "learning_objective": "Apply trigonometry to heights, distances, motion, and multi-step real scenes.",
+      "unlock_rule": {"type": "complete_world", "world_id": "identity_forge"},
+      "mastery_gate": {
+        "gate_level_id": "capstone-rescue-network",
+        "pass_threshold": 0.8,
+        "retry_policy": "unlimited",
+        "remediation_route": "revision_queue",
+        "encouragement_copy": "You are now using trigonometry the way the chapter intended: to understand the world around you."
+      },
+      "level_ids": [
+        "line-of-sight-drill",
+        "tower-and-ladder-relay",
+        "observer-height-watch",
+        "shadow-canal-grid",
+        "lighthouse-moving-targets",
+        "capstone-rescue-network"
+      ]
+    }
+  ],
+  "levels": [
+    {
+      "id": "hidden-triangles",
+      "number": 1,
+      "world_id": "triangle_lab",
+      "title": "Hidden Triangles",
+      "template_id": "tool_lab",
+      "story_setup": "Students scan landmark scenes and lock onto the right triangle hidden in each setup.",
+      "objective": "Spot the horizontal, vertical, and line-of-sight edges that create a right triangle.",
+      "competency_tags": ["spot-right-triangle", "apply-line-of-sight"],
+      "hint_setup": ["Look for the 90-degree corner first.", "The line of sight is the slanted edge."],
+      "retry_rules": {"remediate_after_misses": 2, "revision_prompt_ids": ["rev-field-mission"]},
+      "learning_loop": {
+        "build": "Drag the angle finder over each scene until the right-angle corner glows.",
+        "recall": "Quick sort scenes into right triangle or not-right-triangle.",
+        "apply": "Confirm the triangle hidden in Qutub Minar, riverbank, and balloon scenes.",
+        "revise": "Wrong scenes return later with lighter overlays.",
+        "master": "Complete three scene detections with at least two accurate first tries."
+      },
+      "template_payload": {
+        "mode": "right_triangle_scan",
+        "targets": [
+          {"scene": "minar", "target_angle": 90, "tool": "angle_finder", "tolerance": 8},
+          {"scene": "river", "target_angle": 90, "tool": "angle_finder", "tolerance": 8},
+          {"scene": "balloon", "target_angle": 90, "tool": "angle_finder", "tolerance": 10}
+        ]
+      }
+    },
+    {
+      "id": "angle-side-lab",
+      "number": 2,
+      "world_id": "triangle_lab",
+      "title": "Angle Side Lab",
+      "template_id": "triangle_builder",
+      "story_setup": "The lab triangle changes reference angle and asks the student to relabel every side.",
+      "objective": "Assign opposite, adjacent, and hypotenuse correctly as the reference angle changes.",
+      "competency_tags": ["identify-opposite-adjacent"],
+      "hint_setup": ["Opposite is the side facing the chosen angle.", "Hypotenuse always stays opposite the right angle."],
+      "retry_rules": {"remediate_after_misses": 2, "revision_prompt_ids": ["rev-side-angle-swap"]},
+      "learning_loop": {
+        "build": "Drag side labels to the correct triangle edges for angle A and angle C.",
+        "recall": "Flash relabel two mini-triangles with swapped reference angles.",
+        "apply": "Use the labels to explain why the same side changes role when the angle changes.",
+        "revise": "The game replays the incorrect side assignment with highlights.",
+        "master": "Correctly relabel both reference-angle views in one run."
+      },
+      "template_payload": {
+        "mode": "label_sides",
+        "vertices": {"A": [0.18, 0.84], "B": [0.82, 0.84], "C": [0.82, 0.18]},
+        "rounds": [
+          {"reference_angle": "A", "correct_mapping": {"opposite": "BC", "adjacent": "AB", "hypotenuse": "AC"}},
+          {"reference_angle": "C", "correct_mapping": {"opposite": "AB", "adjacent": "BC", "hypotenuse": "AC"}}
+        ]
+      }
+    },
+    {
+      "id": "ratio-link-forge",
+      "number": 3,
+      "world_id": "triangle_lab",
+      "title": "Ratio Link Forge",
+      "template_id": "ratio_forge",
+      "story_setup": "The forge accepts only correct numerator-denominator pairings.",
+      "objective": "Build sin, cos, tan, and cot from the right side relationships.",
+      "competency_tags": ["define-primary-ratios", "derive-tan-from-sin-cos"],
+      "hint_setup": ["Ask which sides touch the reference angle.", "Tan compares opposite to adjacent."],
+      "retry_rules": {"remediate_after_misses": 2, "revision_prompt_ids": ["rev-ratio-reciprocal"]},
+      "learning_loop": {
+        "build": "Drag side tiles into numerator and denominator slots.",
+        "recall": "Rapidly complete partial ratio cards before time runs out.",
+        "apply": "Use the built ratios to explain the same triangle from two angles.",
+        "revise": "Broken ratio cards return until the correct build is stable.",
+        "master": "Forge all requested ratios without using the final safety hint."
+      },
+      "template_payload": {
+        "rounds": [
+          {"prompt": "Build sin A", "slots": ["numerator", "denominator"], "tokens": ["opposite", "adjacent", "hypotenuse"], "answer": ["opposite", "hypotenuse"]},
+          {"prompt": "Build cos A", "slots": ["numerator", "denominator"], "tokens": ["opposite", "adjacent", "hypotenuse"], "answer": ["adjacent", "hypotenuse"]},
+          {"prompt": "Build tan A", "slots": ["numerator", "denominator"], "tokens": ["opposite", "adjacent", "hypotenuse"], "answer": ["opposite", "adjacent"]},
+          {"prompt": "Build cot A", "slots": ["numerator", "denominator"], "tokens": ["opposite", "adjacent", "hypotenuse"], "answer": ["adjacent", "opposite"]}
+        ]
+      }
+    },
+    {
+      "id": "reciprocal-switchboard",
+      "number": 4,
+      "world_id": "triangle_lab",
+      "title": "Reciprocal Switchboard",
+      "template_id": "ratio_forge",
+      "story_setup": "A switchboard scrambles direct and reciprocal ratios until the player repairs the links.",
+      "objective": "Connect sin with cosec, cos with sec, and tan with cot using reciprocal logic.",
+      "competency_tags": ["use-reciprocal-ratios"],
+      "hint_setup": ["A reciprocal flips numerator and denominator.", "Only true reciprocal pairs complete the circuit."],
+      "retry_rules": {"remediate_after_misses": 2, "revision_prompt_ids": ["rev-ratio-reciprocal"]},
+      "learning_loop": {
+        "build": "Reconnect scrambled direct and reciprocal ratio circuits.",
+        "recall": "Flash identify which reciprocal belongs to the active ratio.",
+        "apply": "Repair a side-ratio machine by replacing each ratio with its reciprocal.",
+        "revise": "Miswired pairs reappear as short drills later in the world.",
+        "master": "Repair all reciprocal circuits and explain one match in words."
+      },
+      "template_payload": {
+        "rounds": [
+          {"prompt": "Match primary and reciprocal ratios", "slots": ["pair_1", "pair_2", "pair_3"], "tokens": ["sin:cosec", "cos:sec", "tan:cot"], "answer": ["sin:cosec", "cos:sec", "tan:cot"]}
+        ]
+      }
+    },
+    {
+      "id": "same-angle-signal",
+      "number": 5,
+      "world_id": "triangle_lab",
+      "title": "Same Angle Signal",
+      "template_id": "tool_lab",
+      "story_setup": "A beam passes through triangles of different sizes but the same acute angle.",
+      "objective": "Show that triangles with the same acute angle keep the same trigonometric ratios.",
+      "competency_tags": ["ratio-invariance", "solve-from-known-ratio"],
+      "hint_setup": ["Watch the angle stay fixed while the size changes.", "The ratio should stay stable even as sides scale."],
+      "retry_rules": {"remediate_after_misses": 2, "revision_prompt_ids": ["rev-side-angle-swap"]},
+      "learning_loop": {
+        "build": "Stretch and shrink similar triangles while measuring the same angle.",
+        "recall": "Predict whether the ratio changes before the scale animation runs.",
+        "apply": "Lock onto matching ratio readings across three triangle sizes.",
+        "revise": "Incorrect predictions come back with side-length overlays.",
+        "master": "Confirm constant ratio readings across all scale variants."
+      },
+      "template_payload": {
+        "mode": "similarity_meter",
+        "targets": [
+          {"scene": "small_triangle", "target_angle": 37, "tool": "ratio_meter", "tolerance": 0.08},
+          {"scene": "medium_triangle", "target_angle": 37, "tool": "ratio_meter", "tolerance": 0.08},
+          {"scene": "large_triangle", "target_angle": 37, "tool": "ratio_meter", "tolerance": 0.08}
+        ]
+      }
+    },
+    {
+      "id": "triangle-lab-mastery",
+      "number": 6,
+      "world_id": "triangle_lab",
+      "title": "Triangle Lab Mastery",
+      "template_id": "ratio_forge",
+      "story_setup": "The lab locks until one ratio is used to reconstruct the rest of the triangle story.",
+      "objective": "Recover missing ratios or sides from one known ratio and a right-triangle relation.",
+      "competency_tags": ["solve-from-known-ratio", "define-primary-ratios", "use-reciprocal-ratios"],
+      "hint_setup": ["Convert the known ratio into side relationships first.", "Use the Pythagoras link only after the side ratio is fixed."],
+      "retry_rules": {"remediate_after_misses": 2, "revision_prompt_ids": ["rev-side-angle-swap", "rev-ratio-reciprocal"]},
+      "learning_loop": {
+        "build": "Start from one known ratio and rebuild the other ratios in sequence.",
+        "recall": "Spot the direct consequence of a given tan or sec value.",
+        "apply": "Solve mixed NCERT-style ratio recovery cards.",
+        "revise": "Missed ratio chains re-enter the revision queue.",
+        "master": "Clear the mixed ratio gauntlet with world-pass accuracy."
+      },
+      "template_payload": {
+        "rounds": [
+          {"prompt": "Given tan A = 4/3, build sin A", "slots": ["numerator", "denominator"], "tokens": ["3", "4", "5"], "answer": ["4", "5"]},
+          {"prompt": "Given sin A = 1/3, choose the side relation before computing anything else", "slots": ["relation"], "tokens": ["opp:hyp = 1:3", "adj:hyp = 1:3", "opp:adj = 1:3"], "answer": ["opp:hyp = 1:3"]},
+          {"prompt": "Given sec A = 13/12, build cos A", "slots": ["numerator", "denominator"], "tokens": ["12", "13", "5"], "answer": ["12", "13"]}
+        ]
+      }
+    },
+    {
+      "id": "forty-five-crystal",
+      "number": 7,
+      "world_id": "sacred_angles",
+      "title": "Forty-Five Crystal",
+      "template_id": "triangle_builder",
+      "story_setup": "A crystal only opens when the player builds an isosceles right triangle and extracts the 45-degree values.",
+      "objective": "Construct the 45-45-90 triangle and derive sin 45, cos 45, and tan 45.",
+      "competency_tags": ["derive-45-values"],
+      "hint_setup": ["In a 45-45-90 triangle, the legs match.", "The hypotenuse grows by root 2."],
+      "retry_rules": {"remediate_after_misses": 2, "revision_prompt_ids": ["rev-angle-values"]},
+      "learning_loop": {
+        "build": "Drag the triangle until the two legs balance.",
+        "recall": "Tap the correct 45-degree values before the crystal fades.",
+        "apply": "Use the built triangle to verify the three core ratios.",
+        "revise": "Wrong ratios return as one-card flash repairs.",
+        "master": "Derive all three 45-degree values in one complete run."
+      },
+      "template_payload": {
+        "mode": "construct_by_drag",
+        "goal": {"equal_legs": true, "right_angle_vertex": "B", "target_angles": [45, 45, 90]},
+        "verification_cards": [
+          {"prompt": "sin 45", "answer": "1/root2"},
+          {"prompt": "cos 45", "answer": "1/root2"},
+          {"prompt": "tan 45", "answer": "1"}
+        ]
+      }
+    },
+    {
+      "id": "thirty-sixty-anvil",
+      "number": 8,
+      "world_id": "sacred_angles",
+      "title": "Thirty Sixty Anvil",
+      "template_id": "triangle_builder",
+      "story_setup": "An equilateral triangle is split on the anvil to reveal the 30-degree and 60-degree patterns.",
+      "objective": "Derive the 30-degree and 60-degree ratios from an equilateral split.",
+      "competency_tags": ["derive-30-60-values"],
+      "hint_setup": ["Split the equilateral triangle through its midpoint.", "The short half-base becomes the side opposite 30 degrees."],
+      "retry_rules": {"remediate_after_misses": 2, "revision_prompt_ids": ["rev-angle-values"]},
+      "learning_loop": {
+        "build": "Split the equilateral triangle and verify the 30-60-90 structure.",
+        "recall": "Match each angle to its exact ratio value.",
+        "apply": "Use the split triangle to confirm sin, cos, and tan for both angles.",
+        "revise": "Missed value cards return in reversed angle order.",
+        "master": "Complete the full 30-60 derivation without a formula sheet."
+      },
+      "template_payload": {
+        "mode": "construct_by_drag",
+        "goal": {"equilateral_split": true, "target_angles": [30, 60, 90]},
+        "verification_cards": [
+          {"prompt": "sin 30", "answer": "1/2"},
+          {"prompt": "cos 30", "answer": "root3/2"},
+          {"prompt": "tan 60", "answer": "root3"}
+        ]
+      }
+    },
+    {
+      "id": "edge-angle-observatory",
+      "number": 9,
+      "world_id": "sacred_angles",
+      "title": "Edge Angle Observatory",
+      "template_id": "tool_lab",
+      "story_setup": "An observatory slider moves the acute angle down to 0 degrees and up to 90 degrees.",
+      "objective": "Understand 0 degree and 90 degree values, and identify which ratios become undefined.",
+      "competency_tags": ["understand-zero-ninety"],
+      "hint_setup": ["Watch what happens to the side opposite the angle as the ray flattens.", "Undefined means the denominator collapses to zero."],
+      "retry_rules": {"remediate_after_misses": 2, "revision_prompt_ids": ["rev-angle-values"]},
+      "learning_loop": {
+        "build": "Slide the ray to 0 degrees and 90 degrees and observe the changing side lengths.",
+        "recall": "Tag each ratio as defined or undefined at the edge angles.",
+        "apply": "Use the observatory to justify sin 0, cos 0, sin 90, and cos 90.",
+        "revise": "Undefined-ratio errors return as short edge cases.",
+        "master": "Explain both edge-angle states and classify all six ratios correctly."
+      },
+      "template_payload": {
+        "mode": "edge_angle_slider",
+        "targets": [
+          {"scene": "angle_zero", "target_angle": 0, "tool": "angle_slider", "tolerance": 3},
+          {"scene": "angle_ninety", "target_angle": 90, "tool": "angle_slider", "tolerance": 3}
+        ]
+      }
+    },
+    {
+      "id": "table-memory-arena",
+      "number": 10,
+      "world_id": "sacred_angles",
+      "title": "Table Memory Arena",
+      "template_id": "angle_memory_arena",
+      "story_setup": "The arena rewards fast, confident recall of the standard value table.",
+      "objective": "Recall the values of sin, cos, tan, cosec, sec, and cot at 0, 30, 45, 60, and 90 degrees.",
+      "competency_tags": ["memorize-standard-values"],
+      "hint_setup": ["Remember the table pattern, not isolated facts.", "Undefined values appear where the denominator becomes zero."],
+      "retry_rules": {"remediate_after_misses": 2, "revision_prompt_ids": ["rev-angle-values"]},
+      "learning_loop": {
+        "build": "Assemble the angle table row by row before the timer starts.",
+        "recall": "Tap the right value tile for each prompt in a timed streak.",
+        "apply": "Recover any broken row by memory without deriving it again.",
+        "revise": "Missed prompts return later with only two distractors.",
+        "master": "Hit the target streak and accuracy together."
+      },
+      "template_payload": {
+        "time_limit_seconds": 35,
+        "rounds": [
+          {"prompt": "sin 30", "answer": "1/2", "options": ["1/2", "root3/2", "1", "0"]},
+          {"prompt": "cos 60", "answer": "1/2", "options": ["1/2", "1/root2", "0", "1"]},
+          {"prompt": "tan 45", "answer": "1", "options": ["1", "0", "root3", "undefined"]},
+          {"prompt": "cosec 90", "answer": "1", "options": ["1", "2", "undefined", "root2"]},
+          {"prompt": "sec 0", "answer": "1", "options": ["1", "2", "undefined", "1/root2"]},
+          {"prompt": "cot 0", "answer": "undefined", "options": ["0", "undefined", "1", "root3"]}
+        ]
+      }
+    },
+    {
+      "id": "sacred-angles-mastery",
+      "number": 11,
+      "world_id": "sacred_angles",
+      "title": "Sacred Angles Mastery",
+      "template_id": "angle_memory_arena",
+      "story_setup": "The final shrine mixes standard values, complementary reasoning, and NCERT-style angle recovery.",
+      "objective": "Apply the standard values in mixed expressions and angle recovery patterns from Exercise 8.2.",
+      "competency_tags": ["solve-specific-angle-mix", "memorize-standard-values", "understand-zero-ninety"],
+      "hint_setup": ["Simplify one ratio at a time.", "Recover the angle by matching the exact ratio value."],
+      "retry_rules": {"remediate_after_misses": 2, "revision_prompt_ids": ["rev-angle-values"]},
+      "learning_loop": {
+        "build": "Warm up by rebuilding selected table entries from memory.",
+        "recall": "Solve standard-value prompts in a mixed order.",
+        "apply": "Answer NCERT-style expression and angle-recovery rounds.",
+        "revise": "Any weak angle returns to the arena queue.",
+        "master": "Pass the mixed sacred-angle gauntlet."
+      },
+      "template_payload": {
+        "time_limit_seconds": 40,
+        "rounds": [
+          {"prompt": "Evaluate sin 60 cos 30 + sin 30 cos 60", "answer": "1", "options": ["1", "root3/2", "1/2", "2"]},
+          {"prompt": "If sin(A - B) = 1/2 and A > B, choose A - B", "answer": "30", "options": ["30", "45", "60", "90"]},
+          {"prompt": "Choose the value of tan 90", "answer": "undefined", "options": ["0", "1", "undefined", "root3"]},
+          {"prompt": "Evaluate 2 tan 45", "answer": "2", "options": ["2", "1", "root2", "0"]},
+          {"prompt": "Which angle has cos value 1/2", "answer": "60", "options": ["30", "45", "60", "90"]}
+        ]
+      }
+    },
+    {
+      "id": "pythagorean-core",
+      "number": 12,
+      "world_id": "identity_forge",
+      "title": "Pythagorean Core",
+      "template_id": "identity_reactor",
+      "story_setup": "The forge extracts the first identity straight from a right triangle.",
+      "objective": "Derive sin^2 A + cos^2 A = 1 by normalising the Pythagoras relation.",
+      "competency_tags": ["prove-sin-cos-identity"],
+      "hint_setup": ["Start from AB^2 + BC^2 = AC^2.", "Divide every term by the same squared side."],
+      "retry_rules": {"remediate_after_misses": 2, "revision_prompt_ids": ["rev-identity-reset"]},
+      "learning_loop": {
+        "build": "Drag the division move onto each term of the triangle equation.",
+        "recall": "Identify which side to divide by to produce sin and cos terms.",
+        "apply": "Complete the final identity chain in the correct order.",
+        "revise": "Incorrect derivation steps return with only the valid move set.",
+        "master": "Derive the identity without revealing the final line."
+      },
+      "template_payload": {
+        "rounds": [
+          {
+            "expression": "AB^2 + BC^2 = AC^2",
+            "moves": [
+              {"id": "divide_ac2", "label": "Divide by AC^2"},
+              {"id": "divide_ab2", "label": "Divide by AB^2"},
+              {"id": "swap_sides", "label": "Swap left and right"}
+            ],
+            "answer": ["divide_ac2"]
+          },
+          {
+            "expression": "(AB/AC)^2 + (BC/AC)^2 = 1",
+            "moves": [
+              {"id": "rename_to_cos_sin", "label": "Replace with cos^2 A and sin^2 A"},
+              {"id": "rename_to_sec_tan", "label": "Replace with sec^2 A and tan^2 A"}
+            ],
+            "answer": ["rename_to_cos_sin"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "sec-tan-reactor",
+      "number": 13,
+      "world_id": "identity_forge",
+      "title": "Sec Tan Reactor",
+      "template_id": "identity_reactor",
+      "story_setup": "The reactor converts the triangle relation into a sec and tan identity.",
+      "objective": "Derive sec^2 A - tan^2 A = 1 using the same right triangle core.",
+      "competency_tags": ["derive-sec-tan-identity"],
+      "hint_setup": ["Use the triangle equation again.", "This time divide by AB^2 and simplify."],
+      "retry_rules": {"remediate_after_misses": 2, "revision_prompt_ids": ["rev-identity-reset"]},
+      "learning_loop": {
+        "build": "Route the triangle equation through the AB^2 reactor path.",
+        "recall": "Choose which quotient becomes tan^2 A and which becomes sec^2 A.",
+        "apply": "Finish the identity in the simplified order demanded by NCERT.",
+        "revise": "Wrong move sequences return as two-step repairs.",
+        "master": "Stabilise the sec-tan reactor without the emergency hint."
+      },
+      "template_payload": {
+        "rounds": [
+          {
+            "expression": "AB^2 + BC^2 = AC^2",
+            "moves": [
+              {"id": "divide_ab2", "label": "Divide by AB^2"},
+              {"id": "divide_bc2", "label": "Divide by BC^2"},
+              {"id": "divide_ac2", "label": "Divide by AC^2"}
+            ],
+            "answer": ["divide_ab2"]
+          },
+          {
+            "expression": "1 + (BC/AB)^2 = (AC/AB)^2",
+            "moves": [
+              {"id": "rename_to_tan_sec", "label": "Rename to 1 + tan^2 A = sec^2 A"},
+              {"id": "rename_to_cot_cosec", "label": "Rename to cot^2 A + 1 = cosec^2 A"}
+            ],
+            "answer": ["rename_to_tan_sec"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cosec-cot-reactor",
+      "number": 14,
+      "world_id": "identity_forge",
+      "title": "Cosec Cot Reactor",
+      "template_id": "identity_reactor",
+      "story_setup": "The third forge channel turns the triangle relation into the cosec-cot identity.",
+      "objective": "Derive cosec^2 A = 1 + cot^2 A.",
+      "competency_tags": ["derive-cosec-cot-identity"],
+      "hint_setup": ["Divide the triangle equation by BC^2.", "Track which quotient becomes cot A."],
+      "retry_rules": {"remediate_after_misses": 2, "revision_prompt_ids": ["rev-identity-reset"]},
+      "learning_loop": {
+        "build": "Send the expression through the BC^2 channel.",
+        "recall": "Match each quotient to cot or cosec.",
+        "apply": "Finish the identity in NCERT form.",
+        "revise": "The wrong quotient mapping returns later as a mini-fix round.",
+        "master": "Complete the reactor path in one steady sequence."
+      },
+      "template_payload": {
+        "rounds": [
+          {
+            "expression": "AB^2 + BC^2 = AC^2",
+            "moves": [
+              {"id": "divide_bc2", "label": "Divide by BC^2"},
+              {"id": "divide_ab2", "label": "Divide by AB^2"},
+              {"id": "factor_left", "label": "Factor the left side"}
+            ],
+            "answer": ["divide_bc2"]
+          },
+          {
+            "expression": "(AB/BC)^2 + 1 = (AC/BC)^2",
+            "moves": [
+              {"id": "rename_to_cot_cosec", "label": "Rename to cot^2 A + 1 = cosec^2 A"},
+              {"id": "rename_to_tan_sec", "label": "Rename to tan^2 A + 1 = sec^2 A"}
+            ],
+            "answer": ["rename_to_cot_cosec"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ratio-expression-converter",
+      "number": 15,
+      "world_id": "identity_forge",
+      "title": "Ratio Expression Converter",
+      "template_id": "identity_reactor",
+      "story_setup": "The converter rewrites ratios in terms of one known ratio without losing validity.",
+      "objective": "Express ratios such as cos A, tan A, and sec A in terms of sin A or cot A.",
+      "competency_tags": ["express-ratios-in-terms"],
+      "hint_setup": ["Start from the identity that actually contains the target ratio.", "Use the positive square-root branch because the angle is acute."],
+      "retry_rules": {"remediate_after_misses": 2, "revision_prompt_ids": ["rev-identity-reset"]},
+      "learning_loop": {
+        "build": "Choose a valid identity and isolate the target ratio.",
+        "recall": "Spot which identity is usable for the requested rewrite.",
+        "apply": "Complete NCERT-style expression conversion rounds.",
+        "revise": "Any broken derivation returns as a smaller isolate-the-ratio task.",
+        "master": "Rewrite all requested ratios correctly."
+      },
+      "template_payload": {
+        "rounds": [
+          {
+            "expression": "Express cos A in terms of sin A",
+            "moves": [
+              {"id": "use_core_identity", "label": "Use sin^2 A + cos^2 A = 1"},
+              {"id": "use_sec_tan", "label": "Use sec^2 A - tan^2 A = 1"}
+            ],
+            "answer": ["use_core_identity"]
+          },
+          {
+            "expression": "Express tan A in terms of sin A",
+            "moves": [
+              {"id": "tan_is_sin_over_cos", "label": "Use tan A = sin A / cos A"},
+              {"id": "tan_is_cos_over_sin", "label": "Use tan A = cos A / sin A"}
+            ],
+            "answer": ["tan_is_sin_over_cos"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "identity-forge-mastery",
+      "number": 16,
+      "world_id": "identity_forge",
+      "title": "Identity Forge Mastery",
+      "template_id": "identity_reactor",
+      "story_setup": "The final forge mixes derivation, rewriting, and proof completion like Exercise 8.3.",
+      "objective": "Complete multi-step proof and simplification tasks without seeing the full solution path.",
+      "competency_tags": ["solve-identity-proofs", "express-ratios-in-terms", "prove-sin-cos-identity"],
+      "hint_setup": ["Each step must be valid on its own.", "If stuck, rewrite in sin and cos first."],
+      "retry_rules": {"remediate_after_misses": 2, "revision_prompt_ids": ["rev-identity-reset"]},
+      "learning_loop": {
+        "build": "Reconstruct the proof flow from shuffled valid moves.",
+        "recall": "Recognise the quickest valid first step.",
+        "apply": "Clear mixed identities modeled on Exercise 8.3.",
+        "revise": "Weak proof patterns enter the revision queue.",
+        "master": "Pass the forge gauntlet with world-pass accuracy."
+      },
+      "template_payload": {
+        "rounds": [
+          {
+            "expression": "(cosec A - cot A)^2 = ?",
+            "moves": [
+              {"id": "rewrite_in_sin_cos", "label": "Rewrite in sin A and cos A"},
+              {"id": "expand_square", "label": "Expand the square"},
+              {"id": "jump_to_answer", "label": "Jump to the final answer"}
+            ],
+            "answer": ["rewrite_in_sin_cos", "expand_square"]
+          },
+          {
+            "expression": "(sec A + tan A)(1 - sin A) = ?",
+            "moves": [
+              {"id": "rewrite_over_cos", "label": "Rewrite sec and tan over cos"},
+              {"id": "multiply_conjugates", "label": "Use 1 - sin^2 A = cos^2 A"},
+              {"id": "finish_as_one", "label": "Reduce to 1"}
+            ],
+            "answer": ["rewrite_over_cos", "multiply_conjugates", "finish_as_one"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "line-of-sight-drill",
+      "number": 17,
+      "world_id": "height_seeker",
+      "title": "Line of Sight Drill",
+      "template_id": "field_mission",
+      "story_setup": "A scout lens trains the player to classify angle of elevation and angle of depression correctly.",
+      "objective": "Use the line of sight and horizontal correctly in elevation and depression scenes.",
+      "competency_tags": ["apply-line-of-sight"],
+      "hint_setup": ["Elevation means the line of sight is above the horizontal.", "Depression means the line of sight drops below the horizontal."],
+      "retry_rules": {"remediate_after_misses": 2, "revision_prompt_ids": ["rev-field-mission"]},
+      "learning_loop": {
+        "build": "Aim the sight line and place the horizontal reference in each scene.",
+        "recall": "Classify the angle type in short fast rounds.",
+        "apply": "Resolve balcony, tower, and observer scenes with correct line placement.",
+        "revise": "Misclassified scenes return with a partial horizontal guide.",
+        "master": "Clear all angle-type and line-of-sight checks."
+      },
+      "template_payload": {
+        "mode": "line_of_sight",
+        "scenarios": [
+          {"title": "Tower top", "target_angle": 60, "question": "Angle of elevation or depression?", "answer": "elevation", "hint_equation": "tan A = height / distance"},
+          {"title": "Balcony to flower pot", "target_angle": 35, "question": "Angle of elevation or depression?", "answer": "depression", "hint_equation": "Use the horizontal from the observer first"},
+          {"title": "Lighthouse to ship", "target_angle": 45, "question": "Angle of elevation or depression?", "answer": "depression", "hint_equation": "The ship is below the observer"}
+        ]
+      }
+    },
+    {
+      "id": "tower-and-ladder-relay",
+      "number": 18,
+      "world_id": "height_seeker",
+      "title": "Tower and Ladder Relay",
+      "template_id": "field_mission",
+      "story_setup": "The relay alternates tower height and ladder length rescue tasks.",
+      "objective": "Solve direct elevation cases such as tower height, rope height, and ladder placement.",
+      "competency_tags": ["solve-tower-ladder-cases"],
+      "hint_setup": ["Choose the ratio linking the known side and the missing side.", "Use the ladder as the hypotenuse when it leans."],
+      "retry_rules": {"remediate_after_misses": 2, "revision_prompt_ids": ["rev-field-mission"]},
+      "learning_loop": {
+        "build": "Adjust angle and length tools until the scene geometry matches the prompt.",
+        "recall": "Quickly choose the correct ratio family for each mission.",
+        "apply": "Solve tower, rope, ladder, and kite-style missions.",
+        "revise": "The same mission reappears later with gentler numbers.",
+        "master": "Complete the relay without revealing final answers."
+      },
+      "template_payload": {
+        "mode": "distance_solver",
+        "scenarios": [
+          {"title": "Tower 15 m away", "question": "Find the tower height when angle = 60", "answer": "15*root3", "target_angle": 60, "hint_equation": "tan 60 = height / 15"},
+          {"title": "Ladder at 60", "question": "Find the ladder length when vertical reach is 3.7", "answer": "4.28", "target_angle": 60, "hint_equation": "sin 60 = 3.7 / ladder"},
+          {"title": "Kite string", "question": "Find string length when height is 60 and angle = 60", "answer": "40*root3", "target_angle": 60, "hint_equation": "sin 60 = 60 / string"}
+        ]
+      }
+    },
+    {
+      "id": "observer-height-watch",
+      "number": 19,
+      "world_id": "height_seeker",
+      "title": "Observer Height Watch",
+      "template_id": "field_mission",
+      "story_setup": "This watchtower mission adds observer height, pedestal height, and flagstaff layers.",
+      "objective": "Account for extra height components before solving the trigonometric step.",
+      "competency_tags": ["adjust-observer-height", "solve-tower-ladder-cases"],
+      "hint_setup": ["Separate the geometric height from the observer or pedestal offset first.", "The trig part often solves only part of the full height."],
+      "retry_rules": {"remediate_after_misses": 2, "revision_prompt_ids": ["rev-field-mission"]},
+      "learning_loop": {
+        "build": "Stack object heights into the scene before measuring.",
+        "recall": "Identify which height is already included and which is extra.",
+        "apply": "Solve observer-height and flagstaff-on-building cases.",
+        "revise": "Missed stack-ups return as short offset-only drills.",
+        "master": "Resolve all offset cases correctly."
+      },
+      "template_payload": {
+        "mode": "stacked_height_solver",
+        "scenarios": [
+          {"title": "Observer and chimney", "question": "Find total chimney height from a 1.5 m observer at 45", "answer": "30", "target_angle": 45, "hint_equation": "tan 45 = visible height / 28.5"},
+          {"title": "Building and flagstaff", "question": "Find flagstaff height when building is 10 and top angle changes from 30 to 45", "answer": "10*(root3-1)", "target_angle": 45, "hint_equation": "tan 45 = (10 + flagstaff) / distance"},
+          {"title": "Statue on pedestal", "question": "Find pedestal height when the statue is 1.6 high", "answer": "pedestal", "target_angle": 60, "hint_equation": "Subtract the statue height after solving the total"}
+        ]
+      }
+    },
+    {
+      "id": "shadow-canal-grid",
+      "number": 20,
+      "world_id": "height_seeker",
+      "title": "Shadow Canal Grid",
+      "template_id": "field_mission",
+      "story_setup": "The grid combines shadows, equal poles, and canal-width patterns in one tactical map.",
+      "objective": "Solve two-angle and shared-height patterns from Exercise 9.1.",
+      "competency_tags": ["solve-shadow-poles-canal"],
+      "hint_setup": ["When the same height appears twice, set the two expressions equal.", "Use the wider shadow or wider road relation carefully."],
+      "retry_rules": {"remediate_after_misses": 2, "revision_prompt_ids": ["rev-field-mission"]},
+      "learning_loop": {
+        "build": "Lay down distances and compare the paired triangles on the grid.",
+        "recall": "Choose whether to subtract, equate, or add the two expressions.",
+        "apply": "Solve shadow, equal-pole, and canal-width tasks.",
+        "revise": "Weak pattern types re-enter the grid as one-step versions.",
+        "master": "Clear the full paired-triangle grid."
+      },
+      "template_payload": {
+        "mode": "paired_triangles",
+        "scenarios": [
+          {"title": "Shadow difference", "question": "Find tower height when the shadow differs by 40 between 30 and 60", "answer": "20*root3", "target_angle": 60, "hint_equation": "Use tan 60 = h/x and tan 30 = h/(x+40)"},
+          {"title": "Equal poles across road", "question": "Find the common height and distances on an 80 m road", "answer": "20*root3", "target_angle": 60, "hint_equation": "Set the two height expressions equal"},
+          {"title": "Canal width", "question": "Find the canal width when the second observation point is 20 m farther", "answer": "20", "target_angle": 60, "hint_equation": "Use tan 60 and tan 30 with a shared tower height"}
+        ]
+      }
+    },
+    {
+      "id": "lighthouse-moving-targets",
+      "number": 21,
+      "world_id": "height_seeker",
+      "title": "Lighthouse Moving Targets",
+      "template_id": "field_mission",
+      "story_setup": "Ships, balloons, and cars move while the player tracks angle changes over time.",
+      "objective": "Solve moving-object and angle-of-depression patterns from Exercise 9.1.",
+      "competency_tags": ["solve-moving-object-cases", "apply-line-of-sight"],
+      "hint_setup": ["Translate each angle into a right triangle before thinking about motion.", "Compare positions at the two observation moments."],
+      "retry_rules": {"remediate_after_misses": 2, "revision_prompt_ids": ["rev-field-mission"]},
+      "learning_loop": {
+        "build": "Track the motion path and pin the two observation triangles.",
+        "recall": "Identify whether the answer is a difference, a distance traveled, or a time remaining.",
+        "apply": "Solve lighthouse, balloon, and highway-car patterns.",
+        "revise": "Missed moving scenes return with one triangle already drawn.",
+        "master": "Resolve all changing-angle scenarios."
+      },
+      "template_payload": {
+        "mode": "moving_targets",
+        "scenarios": [
+          {"title": "Lighthouse ships", "question": "Find the distance between two ships seen at depression angles 30 and 45", "answer": "75*(root3-1)", "target_angle": 45, "hint_equation": "Use the same lighthouse height for both ships"},
+          {"title": "Balloon drift", "question": "Find the horizontal distance traveled as the angle changes from 60 to 30", "answer": "88.2/root3", "target_angle": 60, "hint_equation": "Subtract the two ground distances"},
+          {"title": "Highway car", "question": "Track the car from 30 to 60 depression and infer the remaining time", "answer": "time_remaining", "target_angle": 60, "hint_equation": "The second triangle is closer but shares the same tower height"}
+        ]
+      }
+    },
+    {
+      "id": "capstone-rescue-network",
+      "number": 22,
+      "world_id": "height_seeker",
+      "title": "Capstone Rescue Network",
+      "template_id": "field_mission",
+      "story_setup": "A rescue network spans towers, canals, moving scouts, and layered sightlines in one final operation.",
+      "objective": "Combine multiple Chapter 8 and Chapter 9 competencies in a multi-step capstone mission.",
+      "competency_tags": ["capstone-multi-step-trig", "solve-moving-object-cases", "adjust-observer-height", "solve-shadow-poles-canal"],
+      "hint_setup": ["Break the capstone into smaller right triangles.", "Use only the equation setup needed for the current step."],
+      "retry_rules": {"remediate_after_misses": 2, "revision_prompt_ids": ["rev-field-mission", "rev-identity-reset", "rev-angle-values"]},
+      "learning_loop": {
+        "build": "Map the full rescue scene into linked right triangles.",
+        "recall": "Select the correct ratio family for each stage.",
+        "apply": "Finish the full multi-step mission using angle, ratio, and application logic together.",
+        "revise": "Any weak stage is broken into a lighter replay on the next attempt.",
+        "master": "Pass the final rescue with chapter-level mastery."
+      },
+      "template_payload": {
+        "mode": "capstone_network",
+        "scenarios": [
+          {
+            "title": "Relay rescue",
+            "question": "Use a tower height, canal width, and moving scout angle change to route the rescue line.",
+            "answer": "network_complete",
+            "target_angle": 60,
+            "hint_equation": "Step 1: tan A = height / distance. Step 2: compare the shared height expressions."
+          }
+        ]
+      }
+    }
+  ]
+}

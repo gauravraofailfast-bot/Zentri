@@ -1,0 +1,82 @@
+{
+  "chapter_sections": [
+    {
+      "id": "8.1",
+      "title": "Introduction",
+      "coverage": ["hidden-triangles", "line-of-sight-drill"],
+      "notes": "Covers real-scene triangle formation and line-of-sight context from the chapter introduction."
+    },
+    {
+      "id": "8.2",
+      "title": "Trigonometric Ratios",
+      "coverage": ["angle-side-lab", "ratio-link-forge", "reciprocal-switchboard", "same-angle-signal", "triangle-lab-mastery"],
+      "notes": "Covers side naming, primary and reciprocal ratios, tan from sin/cos, invariance, and recovering values from one known ratio."
+    },
+    {
+      "id": "8.3",
+      "title": "Trigonometric Ratios of Some Specific Angles",
+      "coverage": ["forty-five-crystal", "thirty-sixty-anvil", "edge-angle-observatory", "table-memory-arena", "sacred-angles-mastery"],
+      "notes": "Covers derivation and recall for 45, 30, 60, 0, and 90 degrees plus mixed-use patterns."
+    },
+    {
+      "id": "8.4",
+      "title": "Trigonometric Identities",
+      "coverage": ["pythagorean-core", "sec-tan-reactor", "cosec-cot-reactor", "ratio-expression-converter", "identity-forge-mastery"],
+      "notes": "Covers the three NCERT identities, rewriting ratios in terms of others, and proof completion."
+    },
+    {
+      "id": "9.1",
+      "title": "Heights and Distances",
+      "coverage": ["line-of-sight-drill", "tower-and-ladder-relay", "observer-height-watch", "shadow-canal-grid", "lighthouse-moving-targets", "capstone-rescue-network"],
+      "notes": "Covers line of sight, angle types, tower and ladder cases, observer height, shared-height cases, and moving-object scenarios."
+    }
+  ],
+  "exercise_patterns": [
+    {
+      "id": "ex-8.1-core-ratio-recovery",
+      "covers": ["ratio-link-forge", "triangle-lab-mastery"],
+      "source_questions": ["8.1 Q1", "8.1 Q3", "8.1 Q4", "8.1 Q5", "8.1 Q9", "8.1 Q10"]
+    },
+    {
+      "id": "ex-8.1-concept-checks",
+      "covers": ["angle-side-lab", "same-angle-signal", "triangle-lab-mastery"],
+      "source_questions": ["8.1 Q2", "8.1 Q6", "8.1 Q7", "8.1 Q8", "8.1 Q11"]
+    },
+    {
+      "id": "ex-8.2-standard-values-and-angle-finding",
+      "covers": ["table-memory-arena", "sacred-angles-mastery"],
+      "source_questions": ["8.2 Q1", "8.2 Q2", "8.2 Q3", "8.2 Q4"]
+    },
+    {
+      "id": "ex-8.3-identities-and-rewrites",
+      "covers": ["pythagorean-core", "sec-tan-reactor", "cosec-cot-reactor", "ratio-expression-converter", "identity-forge-mastery"],
+      "source_questions": ["8.3 Q1", "8.3 Q2", "8.3 Q3", "8.3 Q4"]
+    },
+    {
+      "id": "ex-9.1-direct-heights",
+      "covers": ["tower-and-ladder-relay"],
+      "source_questions": ["9.1 Q1", "9.1 Q2", "9.1 Q3", "9.1 Q4", "9.1 Q5"]
+    },
+    {
+      "id": "ex-9.1-observer-and-stacked-height",
+      "covers": ["observer-height-watch"],
+      "source_questions": ["9.1 Q6", "9.1 Q7", "9.1 Q8", "9.1 Q9", "9.1 Q12"]
+    },
+    {
+      "id": "ex-9.1-two-angle-shared-height",
+      "covers": ["shadow-canal-grid"],
+      "source_questions": ["9.1 Q10", "9.1 Q11"]
+    },
+    {
+      "id": "ex-9.1-moving-objects-and-depression",
+      "covers": ["lighthouse-moving-targets", "capstone-rescue-network"],
+      "source_questions": ["9.1 Q13", "9.1 Q14", "9.1 Q15"]
+    }
+  ],
+  "world_gates": [
+    {"world_id": "triangle_lab", "gate_level_id": "triangle-lab-mastery"},
+    {"world_id": "sacred_angles", "gate_level_id": "sacred-angles-mastery"},
+    {"world_id": "identity_forge", "gate_level_id": "identity-forge-mastery"},
+    {"world_id": "height_seeker", "gate_level_id": "capstone-rescue-network"}
+  ]
+}

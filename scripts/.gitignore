@@ -1,0 +1,2 @@
+# Service account credentials — never commit these
+*-serviceAccount.json
