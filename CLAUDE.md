@@ -33,20 +33,6 @@ Every user-facing interaction must be tested by actually performing the action i
 3. **Test state transitions** — retry, replay, navigation back, refresh. If a button changes URL params or app state, verify the downstream effect.
 4. Rendering ≠ working. A button that shows up but does nothing when clicked is a bug.
 
-## Diagram / Figure Accuracy (Mandatory)
-Every diagram, drawing, or SVG figure rendered in a game level must be visually verified via screenshot before marking development complete. Specifically:
-1. **Figures must match the question** — if the question says "angle of depression" the figure must show the observer looking DOWN, not up. If "standing on a tower", the person must be drawn at the top of the tower.
-2. **Labels must be consistent** — angle values, heights, distances, and object names in the figure must match the text of the question and the scenario data.
-3. **Verify every scenario** — if a level has multiple scenarios (e.g., 3 different word problems), take a screenshot of EACH scenario's figure, not just the first one. Different scenarios may need completely different layouts.
-4. **No generic placeholders** — angle labels must show actual degree values (e.g., "60°", "30°"), not generic text like "angle".
-
-## Hint-Only Compute Phases (Mandatory)
-Never show full equations or solution steps to the student before they answer. In compute/solve phases:
-1. Show only the question (e.g., "distance = ?") and answer options.
-2. Provide a collapsible "Need a hint?" button that reveals only the equation setup (e.g., `tan 60° = 30 / distance`) — never the algebraic steps or final answer.
-3. Use `showHint` state, reset it on scenario/step transitions.
-4. This applies to ALL game chapters and subjects, not just TrigTrek.
-
 ## Planning-Execution Alignment
 Every level defined in `gameData.ts` must have a corresponding working component. Do not add levels to the data file with `implemented: false` — either build the level or don't list it. When adding a new game chapter:
 1. Decide how many levels the chapter needs based on the NCERT curriculum.

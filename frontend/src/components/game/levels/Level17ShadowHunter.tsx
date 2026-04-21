@@ -34,7 +34,6 @@ interface Scenario {
   /** SVG config */
   poleHeight: number;
   shadowLen: number;
-  shadowLabel: string | null;
   findAngle: boolean;
 }
 
@@ -54,7 +53,6 @@ const scenarios: Scenario[] = [
     finalLabel: "sun's altitude",
     poleHeight: 6,
     shadowLen: 3.46,
-    shadowLabel: "2√3m",
     findAngle: true,
   },
   {
@@ -72,7 +70,6 @@ const scenarios: Scenario[] = [
     finalLabel: "shadow length",
     poleHeight: 12,
     shadowLen: 12,
-    shadowLabel: null,
     findAngle: false,
   },
   {
@@ -90,7 +87,6 @@ const scenarios: Scenario[] = [
     finalLabel: "sun's altitude",
     poleHeight: 8,
     shadowLen: 13.86,
-    shadowLabel: "√3 × h",
     findAngle: true,
   },
 ];
@@ -100,7 +96,6 @@ export default function Level17ShadowHunter({ onComplete }: Props) {
   const [scenarioIdx, setScenarioIdx] = useState(0);
   const [mistakes, setMistakes] = useState(0);
   const [shake, setShake] = useState(false);
-  const [showHint, setShowHint] = useState(false);
 
   const scenario = scenarios[scenarioIdx];
 
@@ -156,7 +151,6 @@ export default function Level17ShadowHunter({ onComplete }: Props) {
       if (scenarioIdx < scenarios.length - 1) {
         setScenarioIdx((s) => s + 1);
         setPhase("scene");
-        setShowHint(false);
       } else {
         setPhase("done");
         const bonus = mistakes === 0 ? 20 : 0;
@@ -196,28 +190,15 @@ export default function Level17ShadowHunter({ onComplete }: Props) {
     );
   }
 
-  // SVG layout — sun on the LEFT, pole left-of-center, shadow extends RIGHT (opposite sun)
+  // SVG layout
   const groundY = 220;
-  const poleX = 90;
-  const poleDisplayH = Math.min(scenario.poleHeight * 11, 130);
+  const poleX = 140;
+  const poleScale = 10; // px per meter for display
+  const poleDisplayH = Math.min(scenario.poleHeight * poleScale, 140);
   const poleTopY = groundY - poleDisplayH;
-  // Scale shadow to be visually clear — at least 100px to give room for the angle label
-  const shadowDisplayLen = Math.max(Math.min(scenario.shadowLen * 12, 160), 100);
-  const shadowEndX = poleX + shadowDisplayLen;
-  // Sun MUST lie on the line from shadow tip through pole top, extended upward-left
-  // Direction: poleTop - shadowTip, normalized and extended
-  const rayDx = poleX - shadowEndX;
-  const rayDy = poleTopY - groundY;
-  const rayDist = Math.sqrt(rayDx * rayDx + rayDy * rayDy);
-  const ux = rayDx / rayDist;
-  const uy = rayDy / rayDist;
-  // Extend past pole top, but keep sun within viewport (min x=30, min y=25)
-  let extend = 80;
-  let sunX = poleX + ux * extend;
-  let sunY = poleTopY + uy * extend;
-  // Pull back if out of bounds
-  if (sunX < 30) { const t = (30 - poleX) / ux; sunX = 30; sunY = poleTopY + uy * t; }
-  if (sunY < 25) { const t = (25 - poleTopY) / uy; sunX = poleX + ux * t; sunY = 25; }
+  const shadowEndX = poleX + Math.min(scenario.shadowLen * poleScale, 130);
+  const sunX = 280;
+  const sunY = 35;
 
   return (
     <motion.div
@@ -259,7 +240,7 @@ export default function Level17ShadowHunter({ onComplete }: Props) {
           </defs>
           <rect width="320" height="260" fill="url(#sky17)" />
 
-          {/* Sun — upper LEFT */}
+          {/* Sun */}
           <motion.circle
             cx={sunX}
             cy={sunY}
@@ -286,38 +267,47 @@ export default function Level17ShadowHunter({ onComplete }: Props) {
             );
           })}
 
-          {/* Sun ray: single straight line from sun → through pole top → to shadow tip */}
+          {/* Diagonal sun ray to pole top */}
           <line
             x1={sunX}
             y1={sunY}
-            x2={shadowEndX}
-            y2={groundY}
-            stroke="rgba(253,203,110,0.12)"
+            x2={poleX}
+            y2={poleTopY}
+            stroke="rgba(253,203,110,0.08)"
             strokeWidth="1"
             strokeDasharray="6,4"
           />
 
-          {/* Ground — earthy texture */}
-          <rect x="0" y={groundY} width="320" height="6" fill="rgba(80,60,40,0.18)" />
-          <line x1="0" y1={groundY} x2="320" y2={groundY} stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
-          {[20, 80, 140, 200, 270].map((x) => (
-            <path key={x} d={`M ${x},${groundY} Q ${x+3},${groundY-5} ${x+7},${groundY}`} fill="none" stroke="rgba(60,140,40,0.15)" strokeWidth="1.5" />
-          ))}
-
-          {/* Tree trunk — tapered */}
-          <path
-            d={`M ${poleX - 5},${groundY} L ${poleX - 3},${poleTopY + 12} L ${poleX + 3},${poleTopY + 12} L ${poleX + 5},${groundY} Z`}
-            fill="rgba(120,80,40,0.35)"
-            stroke="rgba(160,110,60,0.3)"
+          {/* Ground */}
+          <line
+            x1="0"
+            y1={groundY}
+            x2="320"
+            y2={groundY}
+            stroke="rgba(255,255,255,0.1)"
             strokeWidth="1"
           />
-          {/* Tree foliage — layered for depth */}
-          <ellipse cx={poleX} cy={poleTopY + 4} rx="16" ry="12" fill="rgba(0,120,60,0.12)" stroke="rgba(0,160,80,0.15)" strokeWidth="1" />
-          <circle cx={poleX - 5} cy={poleTopY - 4} r="11" fill="rgba(0,130,65,0.12)" />
-          <circle cx={poleX + 5} cy={poleTopY - 4} r="11" fill="rgba(0,130,65,0.12)" />
-          <circle cx={poleX} cy={poleTopY - 10} r="12" fill="rgba(0,150,75,0.16)" stroke="rgba(0,180,90,0.12)" strokeWidth="1" />
 
-          {/* Shadow on ground — extends RIGHT (opposite to sun) */}
+          {/* Pole/tree */}
+          <line
+            x1={poleX}
+            y1={groundY}
+            x2={poleX}
+            y2={poleTopY}
+            stroke="rgba(255,255,255,0.3)"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
+
+          {/* Tree crown (small) */}
+          <circle
+            cx={poleX}
+            cy={poleTopY - 6}
+            r="10"
+            fill="rgba(0,184,148,0.15)"
+          />
+
+          {/* Shadow on ground */}
           <line
             x1={poleX}
             y1={groundY}
@@ -328,63 +318,37 @@ export default function Level17ShadowHunter({ onComplete }: Props) {
             strokeLinecap="round"
           />
 
-          {/* Line from shadow tip to pole top — this is where the altitude angle is */}
+          {/* Shadow tip line to pole top (line of sight) */}
           <line
             x1={shadowEndX}
             y1={groundY}
             x2={poleX}
             y2={poleTopY}
-            stroke="rgba(162,155,254,0.25)"
+            stroke="rgba(162,155,254,0.2)"
             strokeWidth="1"
             strokeDasharray="4,4"
           />
 
-          {/* Altitude angle at shadow tip — arc between ground and hypotenuse */}
-          {(() => {
-            // The angle is at shadowEndX,groundY between two lines:
-            // 1. Ground going LEFT (toward pole base)
-            // 2. Hypotenuse going to pole top
-            const arcR = 36;
-            const hypAngle = Math.atan2(groundY - poleTopY, shadowEndX - poleX);
-            // Arc start: along ground to the left of shadow tip
-            const arcStartX = shadowEndX - arcR;
-            const arcStartY = groundY;
-            // Arc end: along hypotenuse direction from shadow tip
-            const arcEndX = shadowEndX - arcR * Math.cos(hypAngle);
-            const arcEndY = groundY - arcR * Math.sin(hypAngle);
-            // Label at the bisector of the angle, inside the arc
-            const bisectAngle = hypAngle / 2;
-            const labelR = arcR - 12;
-            const labelX = shadowEndX - labelR * Math.cos(bisectAngle);
-            const labelY = groundY - labelR * Math.sin(bisectAngle);
-            const angleText = scenario.findAngle ? "θ?" : "45°";
-            return (
-              <>
-                {/* Solid arc sweeping from ground up to hypotenuse */}
-                <path
-                  d={`M ${arcStartX},${arcStartY} A ${arcR} ${arcR} 0 0 1 ${arcEndX},${arcEndY}`}
-                  fill="rgba(162,155,254,0.06)"
-                  stroke="rgba(162,155,254,0.6)"
-                  strokeWidth="1.5"
-                />
-                {/* Label inside the arc */}
-                <text
-                  x={labelX}
-                  y={labelY + 4}
-                  textAnchor="middle"
-                  fill="#a29bfe"
-                  fontSize="12"
-                  fontWeight="bold"
-                >
-                  {angleText}
-                </text>
-              </>
-            );
-          })()}
+          {/* Angle arc at shadow tip */}
+          <path
+            d={`M ${shadowEndX - 25},${groundY} A 25 25 0 0 0 ${shadowEndX - 18},${groundY - 20}`}
+            fill="none"
+            stroke="rgba(162,155,254,0.4)"
+            strokeWidth="1"
+          />
+          <text
+            x={shadowEndX - 40}
+            y={groundY - 8}
+            fill="#a29bfe"
+            fontSize="11"
+            fontWeight="bold"
+          >
+            {scenario.findAngle ? "\u03B8?" : ""}
+          </text>
 
           {/* Height label */}
           <text
-            x={poleX + 8}
+            x={poleX - 30}
             y={(poleTopY + groundY) / 2}
             fill="rgba(253,203,110,0.5)"
             fontSize="11"
@@ -401,8 +365,8 @@ export default function Level17ShadowHunter({ onComplete }: Props) {
             fill="rgba(255,255,255,0.3)"
             fontSize="10"
           >
-            {scenario.shadowLabel
-              ? `shadow = ${scenario.shadowLabel}`
+            {scenario.findAngle
+              ? `shadow`
               : "shadow = ?"}
           </text>
 
@@ -451,24 +415,10 @@ export default function Level17ShadowHunter({ onComplete }: Props) {
           animate={{ opacity: 1, y: 0 }}
           className="text-center"
         >
-          <p className="text-sm text-white/70 mb-3 font-medium">
+          <p className="text-sm text-white/50 mb-2">{scenario.equation}</p>
+          <p className="text-sm text-white/70 mb-4 font-medium">
             {scenario.findAngle ? "tan \u03B8 = ?" : `${scenario.finalLabel} = ?`}
           </p>
-          <button
-            onClick={() => setShowHint((h) => !h)}
-            className="text-[11px] text-accent-light/60 hover:text-accent-light transition-colors mb-4"
-          >
-            {showHint ? "Hide hint ▲" : "Need a hint? ▼"}
-          </button>
-          {showHint && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              className="mb-4 px-4 py-2 rounded-lg bg-white/[0.03] border border-white/[0.06] inline-block"
-            >
-              <p className="text-xs text-white/40">{scenario.equation}</p>
-            </motion.div>
-          )}
           <div className="grid grid-cols-2 gap-3 max-w-xs mx-auto">
             {scenario.computeOptions.map((opt) => (
               <button
@@ -489,24 +439,10 @@ export default function Level17ShadowHunter({ onComplete }: Props) {
           animate={{ opacity: 1, y: 0 }}
           className="text-center"
         >
-          <p className="text-sm text-white/70 mb-3 font-medium">
-            What is the angle θ?
+          <p className="text-sm text-white/50 mb-2">{scenario.computeSteps}</p>
+          <p className="text-sm text-white/70 mb-4 font-medium">
+            What is the angle \u03B8?
           </p>
-          <button
-            onClick={() => setShowHint((h) => !h)}
-            className="text-[11px] text-accent-light/60 hover:text-accent-light transition-colors mb-4"
-          >
-            {showHint ? "Hide hint ▲" : "Need a hint? ▼"}
-          </button>
-          {showHint && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              className="mb-4 px-4 py-2 rounded-lg bg-white/[0.03] border border-white/[0.06] inline-block"
-            >
-              <p className="text-xs text-white/40">{scenario.computeSteps}</p>
-            </motion.div>
-          )}
           <div className="grid grid-cols-2 gap-3 max-w-xs mx-auto">
             {scenario.angleOptions.map((opt) => (
               <button

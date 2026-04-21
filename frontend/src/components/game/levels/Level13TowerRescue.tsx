@@ -60,7 +60,6 @@ export default function Level13TowerRescue({ onComplete }: Props) {
   const [scenarioIdx, setScenarioIdx] = useState(0);
   const [mistakes, setMistakes] = useState(0);
   const [shake, setShake] = useState(false);
-  const [showHint, setShowHint] = useState(false);
   const [ladderExtended, setLadderExtended] = useState(false);
 
   const scenario = scenarios[scenarioIdx];
@@ -88,7 +87,6 @@ export default function Level13TowerRescue({ onComplete }: Props) {
             setScenarioIdx((s) => s + 1);
             setPhase("scene");
             setLadderExtended(false);
-            setShowHint(false);
           } else {
             setPhase("done");
             const bonus = mistakes === 0 ? 20 : 0;
@@ -183,32 +181,40 @@ export default function Level13TowerRescue({ onComplete }: Props) {
           </defs>
           <rect width="320" height="260" fill="url(#sky)" />
 
-          {/* Ground with subtle texture */}
-          <rect x="0" y={groundY} width="320" height="5" fill="rgba(60,50,80,0.15)" />
-          <line x1="0" y1={groundY} x2="320" y2={groundY} stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
-          {[40, 100, 160, 210].map((x) => (
-            <path key={x} d={`M ${x},${groundY} Q ${x+3},${groundY-5} ${x+7},${groundY}`} fill="none" stroke="rgba(80,160,60,0.12)" strokeWidth="1.5" />
-          ))}
+          {/* Ground */}
+          <line
+            x1="0"
+            y1={groundY}
+            x2="320"
+            y2={groundY}
+            stroke="rgba(255,255,255,0.1)"
+            strokeWidth="1"
+          />
 
-          {/* Building — realistic facade */}
-          {/* Foundation slab */}
-          <rect x={towerX - 18} y={groundY - 5} width="36" height="5" fill="rgba(140,130,170,0.15)" stroke="rgba(200,185,230,0.2)" strokeWidth="1" />
-          {/* Main body */}
-          <rect x={towerX - 15} y={towerTopY + 8} width="30" height={towerHeight - 13} fill="rgba(140,130,170,0.07)" stroke="rgba(200,185,230,0.18)" strokeWidth="1" />
-          {/* Rooftop cornice ledge */}
-          <rect x={towerX - 18} y={towerTopY} width="36" height="10" fill="rgba(140,130,170,0.14)" stroke="rgba(200,185,230,0.25)" strokeWidth="1" />
-          {/* Side depth shadow */}
-          <rect x={towerX + 15} y={towerTopY + 2} width="4" height={towerHeight - 2} fill="rgba(0,0,0,0.1)" />
-          {/* Floor dividers */}
-          {[0.33, 0.66].map((frac) => (
-            <line key={frac} x1={towerX - 15} y1={towerTopY + 8 + (towerHeight - 13) * frac} x2={towerX + 15} y2={towerTopY + 8 + (towerHeight - 13) * frac} stroke="rgba(200,185,230,0.07)" strokeWidth="1" />
+          {/* Tower */}
+          <rect
+            x={towerX - 15}
+            y={towerTopY}
+            width="30"
+            height={towerHeight}
+            fill="rgba(255,255,255,0.06)"
+            stroke="rgba(255,255,255,0.15)"
+            strokeWidth="1"
+            rx="2"
+          />
+
+          {/* Windows on tower */}
+          {[0.2, 0.4, 0.6, 0.8].map((frac) => (
+            <rect
+              key={frac}
+              x={towerX - 6}
+              y={towerTopY + towerHeight * frac - 6}
+              width="12"
+              height="8"
+              fill="rgba(253,203,110,0.15)"
+              rx="1"
+            />
           ))}
-          {/* Windows — 2 columns × 4 rows */}
-          {[0.13, 0.37, 0.61, 0.85].map((frac) =>
-            [-9, 2].map((xOff) => (
-              <rect key={`${frac}-${xOff}`} x={towerX + xOff} y={towerTopY + 8 + (towerHeight - 20) * frac} width="7" height="8" fill="rgba(253,203,110,0.2)" rx="1" />
-            ))
-          )}
 
           {/* Person on top */}
           <motion.g
@@ -381,26 +387,15 @@ export default function Level13TowerRescue({ onComplete }: Props) {
           animate={{ opacity: 1, y: 0 }}
           className="text-center"
         >
-          <p className="text-sm text-white/70 mb-3 font-medium">
+          <p className="text-sm text-white/50 mb-2">
+            tan {scenario.angle}&deg; = h / {scenario.distance}
+          </p>
+          <p className="text-sm text-white/50 mb-4">
+            {scenario.trigValue} = h / {scenario.distance}
+          </p>
+          <p className="text-sm text-white/70 mb-4 font-medium">
             h = ?
           </p>
-          <button
-            onClick={() => setShowHint((h) => !h)}
-            className="text-[11px] text-accent-light/60 hover:text-accent-light transition-colors mb-4"
-          >
-            {showHint ? "Hide hint ▲" : "Need a hint? ▼"}
-          </button>
-          {showHint && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              className="mb-4 px-4 py-2 rounded-lg bg-white/[0.03] border border-white/[0.06] inline-block"
-            >
-              <p className="text-xs text-white/40">
-                tan {scenario.angle}° = h / {scenario.distance}
-              </p>
-            </motion.div>
-          )}
           <div className="grid grid-cols-2 gap-3 max-w-xs mx-auto">
             {scenario.heightOptions.map((opt) => (
               <button
