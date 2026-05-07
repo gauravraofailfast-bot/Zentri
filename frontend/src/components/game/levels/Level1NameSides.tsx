@@ -138,7 +138,7 @@ export default function Level1NameSides({ onComplete }: Props) {
   // Sides: 0 = AC (bottom), 1 = BC (right), 2 = AB (hypotenuse)
   const sides = [
     { from: A, to: C, mid: { x: (A.x + C.x) / 2, y: A.y + 20 } },
-    { from: C, to: B, mid: { x: C.x + 20, y: (C.y + B.y) / 2 } },
+    { from: C, to: B, mid: { x: C.x - 35, y: (C.y + B.y) / 2 } },
     { from: A, to: B, mid: { x: (A.x + B.x) / 2 - 20, y: (A.y + B.y) / 2 - 10 } },
   ];
 
