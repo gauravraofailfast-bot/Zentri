@@ -1,12 +1,28 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/components/auth/AuthProvider";
+import SignInModal from "@/components/auth/SignInModal";
 
 export default function Hero() {
+  const { user, loading } = useAuth();
+  const router = useRouter();
+  const [showSignIn, setShowSignIn] = useState(false);
+
+  function handleCTA() {
+    if (loading) return;
+    if (user) {
+      router.push("/explore");
+    } else {
+      setShowSignIn(true);
+    }
+  }
+
   return (
     <section className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
-      {/* Subtle radial glow — very faint, not a "gradient background" */}
+      {/* Subtle radial glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/[0.04] rounded-full blur-[120px]" />
       </div>
@@ -45,15 +61,16 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }}
         >
-          <Link
-            href="/trigquest"
-            className="group relative inline-block px-8 py-3.5 text-sm uppercase tracking-[0.15em] font-medium text-accent-light border border-accent/30 rounded-full hover:border-accent/60 hover:shadow-[0_0_30px_rgba(108,92,231,0.15)] transition-all duration-500"
+          <button
+            onClick={handleCTA}
+            disabled={loading}
+            className="group relative inline-block px-8 py-3.5 text-sm uppercase tracking-[0.15em] font-medium text-accent-light border border-accent/30 rounded-full hover:border-accent/60 hover:shadow-[0_0_30px_rgba(108,92,231,0.15)] transition-all duration-500 disabled:opacity-50"
           >
-            Play a Math Game
+            Try it Free
             <span className="inline-block ml-2 transition-transform duration-300 group-hover:translate-x-1">
               &rarr;
             </span>
-          </Link>
+          </button>
         </motion.div>
       </div>
 
@@ -72,6 +89,8 @@ export default function Hero() {
           <div className="w-1 h-1.5 bg-white/40 rounded-full" />
         </motion.div>
       </motion.div>
+
+      <SignInModal isOpen={showSignIn} onClose={() => setShowSignIn(false)} />
     </section>
   );
 }

@@ -1,14 +1,20 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 
-// Static data for now — will connect to Firestore later
+// Statically reflect the two curricula that exist in Supabase
 const subjects = [
-  { name: "Mathematics", gameCount: 12 },
-  { name: "Science", gameCount: 8 },
-  { name: "English", gameCount: 5 },
-  { name: "Social Science", gameCount: 6 },
-  { name: "Hindi", gameCount: 3 },
+  {
+    id: "class10-math-standard",
+    name: "Class 10 Mathematics (Standard)",
+    detail: "14 chapters · 159 PYQs",
+  },
+  {
+    id: "class10-math-basic",
+    name: "Class 10 Mathematics (Basic)",
+    detail: "14 chapters · 211 PYQs",
+  },
 ];
 
 export default function SubjectBrowser() {
@@ -25,29 +31,30 @@ export default function SubjectBrowser() {
       </motion.h2>
 
       <div className="max-w-xl mx-auto">
-        {/* Top border */}
         <div className="h-px bg-white/[0.08]" />
 
         {subjects.map((subject, i) => (
           <motion.div
-            key={subject.name}
+            key={subject.id}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: i * 0.06 }}
           >
-            <button className="group w-full flex items-center justify-between py-5 md:py-6 text-left transition-all duration-300">
+            <Link
+              href={`/explore/${subject.id}`}
+              className="group w-full flex items-center justify-between py-5 md:py-6 text-left transition-all duration-300"
+            >
               <span className="text-base md:text-lg text-white/60 group-hover:text-foreground group-hover:translate-x-2 transition-all duration-300">
                 {subject.name}
               </span>
               <span className="flex items-center gap-2 text-sm text-white/40 group-hover:text-white/50 transition-all duration-300">
-                <span>{subject.gameCount} games</span>
+                <span>{subject.detail}</span>
                 <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   &rarr;
                 </span>
               </span>
-            </button>
-            {/* Divider */}
+            </Link>
             <div className="h-px bg-white/[0.06]" />
           </motion.div>
         ))}

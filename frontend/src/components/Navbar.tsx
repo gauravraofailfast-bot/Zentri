@@ -2,9 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { useAuth } from "@/components/auth/AuthProvider";
+import SignInModal from "@/components/auth/SignInModal";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [showSignIn, setShowSignIn] = useState(false);
+  const { user, loading, signOut } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -13,23 +18,58 @@ export default function Navbar() {
   }, []);
 
   return (
-    <motion.nav
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 py-4 transition-all duration-500 ${
-        scrolled
-          ? "bg-[rgba(15,15,19,0.85)] backdrop-blur-md border-b border-white/[0.06]"
-          : "bg-transparent"
-      }`}
-    >
-      <span className="text-lg font-bold tracking-tight text-foreground">
-        Zentri
-      </span>
+    <>
+      <motion.nav
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 py-4 transition-all duration-500 ${
+          scrolled
+            ? "bg-[rgba(15,15,19,0.85)] backdrop-blur-md border-b border-white/[0.06]"
+            : "bg-transparent"
+        }`}
+      >
+        <Link href="/" className="text-lg font-bold tracking-tight text-foreground">
+          Zentri
+        </Link>
 
-      <button className="text-sm text-white/70 px-5 py-2 rounded-full border border-white/[0.12] hover:border-white/[0.25] hover:text-white transition-all duration-300">
-        Sign In
-      </button>
-    </motion.nav>
+        <div className="flex items-center gap-4">
+          <Link
+            href="/explore"
+            className="text-sm text-white/60 hover:text-foreground transition-colors hidden sm:block"
+          >
+            Explore
+          </Link>
+          <Link
+            href="/trigquest"
+            className="text-sm text-white/60 hover:text-foreground transition-colors hidden sm:block"
+          >
+            TrigQuest
+          </Link>
+
+          {!loading && (
+            <>
+              {user ? (
+                <button
+                  onClick={signOut}
+                  className="text-sm text-white/70 px-5 py-2 rounded-full border border-white/[0.12] hover:border-white/[0.25] hover:text-white transition-all duration-300"
+                >
+                  Sign Out
+                </button>
+              ) : (
+                <button
+                  onClick={() => setShowSignIn(true)}
+                  className="text-sm text-white/70 px-5 py-2 rounded-full border border-white/[0.12] hover:border-white/[0.25] hover:text-white transition-all duration-300"
+                >
+                  Sign In
+                </button>
+              )}
+            </>
+          )}
+        </div>
+      </motion.nav>
+
+      <SignInModal isOpen={showSignIn} onClose={() => setShowSignIn(false)} />
+    </>
   );
 }
