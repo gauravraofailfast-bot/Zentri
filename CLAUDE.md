@@ -23,6 +23,20 @@ Fully independent from SprintUp with its own Firebase project (failfast-58c9f).
 - Show sign-in options only AFTER the user clicks the CTA (modal or new screen).
 
 
+## Dev Server (Mandatory — read before starting localhost)
+
+This is a monorepo with two `package-lock.json` files (`/` and `/frontend/`). Turbopack detects both and can use the wrong root, causing a **memory-exhausting error loop** that shuts down the machine.
+
+**Always follow these rules before starting the dev server:**
+
+1. **Install deps in `frontend/` first** — run `cd frontend && npm install` if `node_modules` is missing or stale.
+2. **`tailwindcss` must exist at the repo root** — the root-level `package-lock.json` causes Turbopack's resolver to look for `tailwindcss` in `/Users/gauravrao/Zentri/node_modules/`. If it's missing, run `npm install tailwindcss --save-dev` from the repo root.
+3. **`turbopack.root` is set in `frontend/next.config.ts`** — do not remove it. It pins Turbopack's workspace root to `frontend/` and prevents the lockfile conflict.
+4. **Dev script uses `--turbopack`** — `frontend/package.json` dev script must be `next dev --turbopack`. Do not remove the flag; Tailwind v4's `@import "tailwindcss"` CSS syntax requires Turbopack.
+5. **Use the preview tool** — always start the server via `preview_start("frontend")`, never a raw `npm run dev` in a background shell, to avoid zombie Node processes.
+
+**Symptom of the error loop:** `Can't resolve 'tailwindcss' in '/Users/gauravrao/Zentri'` repeating in logs. Fix: run step 2 above, then restart the server.
+
 ## Quality Gate (Mandatory)
 No task is complete until `npm run verify` passes.
 
